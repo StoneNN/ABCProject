@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-05 22:10:13
+ * @LastEditTime: 2022-05-06 23:04:03
  * @Descripttion: Default Layout
 -->
 
@@ -44,7 +44,7 @@
           </a>
           <a-menu slot="overlay" style="text-align:right ">
             <a-menu-item>
-              你好，{{userName}}!
+              你好，{{sessionInfo.name}}!
             </a-menu-item>
             <a-menu-divider />
             <a-menu-item>
@@ -77,7 +77,8 @@
   import { Layout, Table, Icon, Menu, Dropdown} from "ant-design-vue";
   import BreadCrumbRouter from "../components/breads.vue";
   import 'ant-design-vue/dist/antd.css';
-  
+  import odooApi from '@/odooapi';
+
   Vue.use(Layout).use(Table).use(Icon).use(Menu).use(Dropdown);
   Vue.use(BreadCrumbRouter);
   
@@ -204,7 +205,8 @@
         //当前路由路径
         currentPath:"",
         //
-        userName:localStorage.getItem('userName'),
+        // userName:'',       //localStorage.getItem('userName'),
+        sessionInfo: odooApi.web.session.session_info || {},
       };
     },
     created(){

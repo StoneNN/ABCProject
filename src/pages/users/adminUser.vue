@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 00:39:58
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-06 17:17:37
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-06 22:00:34
  * @Descripttion: 
 -->
 
@@ -26,8 +26,11 @@
         },
         methods:{
            async get_user_info () {
+               console.log('-=-=-=-=-=    ------');
                 const uid = odooApi.env.uid
-                const Model = odooApi.env.model('res.users')
+                console.log('------uid -----',uid);
+                const Model = odooApi.env.model('res.users');
+
                 const res = await Model.read(uid, ['name', 'email', 'company_id'])
                 console.log('===== user_info =====', res)
                 return res;

@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 22:03:13
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-06 17:29:18
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-06 21:53:40
  * @Descripttion: 登录页面
 -->
 
@@ -87,7 +87,7 @@
   import Vue from "vue";
   import { Layout, Icon, Menu, Input, Form, Card} from "ant-design-vue";
   import 'ant-design-vue/dist/antd.css';
-  import odooApi from '@/odoorpc';
+  import odooRpc from '@/odoorpc';
   
   Vue.use(Layout).use(Form).use(Icon).use(Menu).use(Input).use(Card);
   import {mapActions} from 'vuex';
@@ -126,7 +126,7 @@
         const db = process.env.VUE_APP_ODOO_DB
         // const username = 'user1@comp1'
         // const password = '123456'
-        const res = await odooApi.web.session.authenticate({
+        const res = await odooRpc.web.session.authenticate({
           db,
           login: loginAccount,
           password: loginPassword
@@ -135,8 +135,8 @@
         console.log('======= login =======', res);
         // return res;
         if (res.uid) {
-          localStorage.setItem('userName',res.name);
-          const session = odooApi.env;
+          // localStorage.setItem('userName',res.name);
+          const session = odooRpc.env;
           console.log('==== session ====',session);
           this.$router.push({
             name: 'home'

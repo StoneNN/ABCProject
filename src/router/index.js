@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-04-25 17:05:44
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-04 13:32:08
+ * @LastEditTime: 2022-05-06 23:19:49
  * @Description: 
  */
 
@@ -28,6 +28,9 @@ import UserInfo from '@/pages/users/userInfo';
 
 import Login from '@/pages/login.vue';
 import TestView from '@/components/TestRpc';
+
+import odooApi from '@/odooapi';
+
 //  --2.--注入VueRouter插件
 Vue.use(VueRouter);
 
@@ -189,9 +192,18 @@ const router = new VueRouter({
 });
 
 //全局前置路由守卫 ---- 初始化的时候被调用；每次路由切换之前被调用
-router.beforeEach((to,from,next)=>{
+router.beforeEach( async (to,from,next)=>{
     console.log("beforeEach ---> to,from",to, from);
-    next();
+    // next();
+    const hasToken = await odooApi.web.session_check()
+    console.log('======= hasToken =======',hasToken);
+    if (hasToken) {
+        next();
+        return;
+    } else {
+        next(`/userLogin?redirect=${to.path}`)
+        return;
+    }
 })
 
 //全局后置路由守卫 ---- 初始化的时候被调用；每次路由切换之后被调用（没有 next 参数）
