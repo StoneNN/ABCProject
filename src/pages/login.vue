@@ -1,23 +1,9 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 22:03:13
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-05 23:22:37
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-06 17:29:18
  * @Descripttion: 登录页面
--->
-
-<!--
-<template>
-        <h1>登录页面</h1>
-</template>
-<script>
-    export default {
-        name:"LoginCpnt",
-    }
-</script>
-<style scoped>
-    
-</style>
 -->
 
 <template>
@@ -140,7 +126,7 @@
         const db = process.env.VUE_APP_ODOO_DB
         // const username = 'user1@comp1'
         // const password = '123456'
-        const res = await odooApi .web.session.authenticate({
+        const res = await odooApi.web.session.authenticate({
           db,
           login: loginAccount,
           password: loginPassword
