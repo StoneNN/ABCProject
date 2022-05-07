@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-06 23:04:03
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-07 10:33:50
  * @Descripttion: Default Layout
 -->
 
@@ -51,7 +51,7 @@
               <a>用户信息 ></a>
             </a-menu-item>
             <a-menu-item>
-              <a>退出登录 ></a>
+              <a-button  @click="logOutAction()">退出登录</a-button>
             </a-menu-item>
           </a-menu>
         </a-dropdown>  
@@ -63,7 +63,17 @@
         >
           <router-view></router-view>
         </div>
-
+        <a-modal
+          title="提示"
+          okText="确定"
+          cancelText="取消"
+          :visible="visible"
+          :confirm-loading="confirmLoading"
+          @ok="handleOk"
+          @cancel="handleCancel"
+        >
+          <p>{{ ModalText }}</p>
+        </a-modal>
       </a-layout-content>
       <a-layout-footer style="height:40px; line-height:40px; padding:0px; text-align: center; font-size: 10px; font-weight: bolder; backgroundColor:lightGray">
         {{ appCompany }}
@@ -74,12 +84,12 @@
 <script>
  
   import Vue from "vue";
-  import { Layout, Table, Icon, Menu, Dropdown} from "ant-design-vue";
+  import { Layout, Table, Icon, Menu, Dropdown, Button, Modal } from "ant-design-vue";
   import BreadCrumbRouter from "../components/breads.vue";
   import 'ant-design-vue/dist/antd.css';
   import odooApi from '@/odooapi';
 
-  Vue.use(Layout).use(Table).use(Icon).use(Menu).use(Dropdown);
+  Vue.use(Layout).use(Table).use(Icon).use(Menu).use(Dropdown).use(Button).use(Modal);
   Vue.use(BreadCrumbRouter);
   
   // 定义函数式组件
@@ -205,8 +215,11 @@
         //当前路由路径
         currentPath:"",
         //
-        // userName:'',       //localStorage.getItem('userName'),
         sessionInfo: odooApi.web.session.session_info || {},
+        //modal
+        ModalText: '是否要退出？',
+        visible: false,
+        confirmLoading: false,
       };
     },
     created(){
@@ -245,6 +258,31 @@
           this.openKeys = latestOpenKey ? [latestOpenKey] : [];
         }
       },
+      //modal
+      showModal() {
+        this.visible = true;
+      },
+      handleOk(e) {
+        // this.ModalText = 'The modal will be closed after two seconds';
+        this.confirmLoading = true;
+        setTimeout(() => {
+          this.visible = false;
+          this.confirmLoading = false;
+          odooApi.web.logout();
+          this.$router.replace({ path: '/userLogin' });
+        }, 1000);
+      },
+      handleCancel(e) {
+        console.log('Clicked cancel button');
+        this.visible = false;
+      },
+      
+      //退出登录
+      logOutAction(){
+        console.log('======== 退出登录 =======');
+        this.showModal();
+        
+      }
     },
   };
 </script>

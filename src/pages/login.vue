@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 22:03:13
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-06 21:53:40
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-07 11:45:56
  * @Descripttion: 登录页面
 -->
 
@@ -68,6 +68,7 @@
                     type="primary"
                     html-type="submit"
                     class="login-form-button"
+                    
                   >
                     登 录
                   </a-button>
@@ -98,7 +99,8 @@
       return{
          appCompany:process.env.VUE_APP_COMPANY,
          appName:process.env.VUE_APP_NAME,
-         loginTitle:process.env.VUE_APP_LOGIN_TITLE
+         loginTitle:process.env.VUE_APP_LOGIN_TITLE,
+         
       }
     },
     beforeCreate() {
@@ -120,12 +122,12 @@
       handleSubmit(e) {
         e.preventDefault()
         this.loginForm.validateFields( async(err, values) => {
-         
+        
         console.log('------ login ------',values);
         const{loginAccount, loginPassword} = values;
-        const db = process.env.VUE_APP_ODOO_DB
-        // const username = 'user1@comp1'
-        // const password = '123456'
+        const db = process.env.VUE_APP_ODOO_DB;
+        
+        
         const res = await odooRpc.web.session.authenticate({
           db,
           login: loginAccount,
