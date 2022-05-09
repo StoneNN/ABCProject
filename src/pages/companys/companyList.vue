@@ -2,30 +2,36 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-09 17:30:41
- * @Descripttion: userList页面
+ * @LastEditTime: 2022-05-09 17:42:08
+ * @Descripttion: 
 -->
 
-
+<!--
+<template>
+        <h1>userList页面</h1>
+</template>
+-->
 <template>
   <div id="root">
+      <!-- <span>999</span> -->
     <a-button type="primary">
       批量删除
     </a-button>
+    
     <a-button type="primary">
-      新建用户
+      新建公司
     </a-button>
     <a-button type="primary">
       重置
     </a-button>
+    
     <a-input-search
-      placeholder="请输入订单号码"
+      placeholder="请输入公司名称"
       enter-button="搜索"
       size="default"
       style="width:40%;"
       @search="onSearch"
     />
-
     <a-table
         :columns="columns" 
         :data-source="userData"
@@ -65,21 +71,22 @@
             align:'center',
             slots: { title: 'userId' },
             scopedSlots: { customRender: 'userId' },
-            width:'80px'
-        },
-        {
-            title: '账号',
-            dataIndex: 'login',
-            key: 'login',
-            align:'center',
+            width:'15%'
+
         },
         {
             title: '姓名',
             dataIndex:'name',
             key: 'name',
             align:'center',
-            // width:'20%'
+            width:'20%'
 
+        },
+        {
+            title: '账号',
+            dataIndex: 'login',
+            key: 'login',
+            align:'center',
         },
         {
             title: '手机号',
@@ -92,7 +99,6 @@
             dataIndex: 'email',
             key: 'email',
             align:'center',
-            width:'100px'
         },
         {
             title: '全名',
@@ -100,20 +106,20 @@
             key: 'display_name',
             align:'center',
         },
-        // {
-        //     title: '头像',
-        //     dataIndex:'image_1920',
-        //     key: 'image_1920',
-        //     align:'center',
-        //     scopedSlots:{ customRender: 'image_1920' }
-        // },
+        {
+            title: '头像',
+            dataIndex:'image_1920',
+            key: 'image_1920',
+            align:'center',
+            scopedSlots:{ customRender: 'image_1920' }
+        },
         {
             title: '职位',
             dataIndex:'function',
             key: 'function',
             align:'center',
             scopedSlots: {customRender:'function'},
-            width:'80px'
+            width:'15%'
         },
         {
             title: '公司id',
@@ -121,40 +127,40 @@
             key: 'company_id',
             align:'center',
             scopedSlots: {customRender:'company_id'},
-            // width:'15%'
+            width:'15%'
         },
-        // {
-        //     title: '??',
-        //     dataIndex:'category_id',
-        //     key: 'category_id',
-        //     align:'center',
-        //     scopedSlots: {customRender:'category_id'},
-        //     width:'15%'
-        // },
-        // {
-        //     title: '销售经理id',
-        //     dataIndex:'user_id',
-        //     key: 'user_id',
-        //     align:'center',
-        //     scopedSlots: {customRender:'user_id'},
-        //     width:'15%'
-        // },
-        // {
-        //     title: '职工编号',
-        //     dataIndex:'ref',
-        //     key: 'ref',
-        //     align:'center',
-        //     scopedSlots: {customRender:'ref'},
-        //     width:'15%'
-        // },
-        // {
-        //     title: '备注',
-        //     dataIndex:'comment',
-        //     key: 'comment',
-        //     align:'center',
-        //     scopedSlots: {customRender:'comment'},
-        //     width:'15%'
-        // },
+        {
+            title: '??',
+            dataIndex:'category_id',
+            key: 'category_id',
+            align:'center',
+            scopedSlots: {customRender:'category_id'},
+            width:'15%'
+        },
+        {
+            title: '销售经理id',
+            dataIndex:'user_id',
+            key: 'user_id',
+            align:'center',
+            scopedSlots: {customRender:'user_id'},
+            width:'15%'
+        },
+        {
+            title: '职工编号',
+            dataIndex:'ref',
+            key: 'ref',
+            align:'center',
+            scopedSlots: {customRender:'ref'},
+            width:'15%'
+        },
+        {
+            title: '备注',
+            dataIndex:'comment',
+            key: 'comment',
+            align:'center',
+            scopedSlots: {customRender:'comment'},
+            width:'15%'
+        },
         {
             title: '操作',
             dataIndex:'action',
@@ -185,10 +191,8 @@
             }
         },
         mounted(){
-            console.log('------ get user info -------');
-            // this.get_user_info();
-            // this.user_model_fields();
-            this.get_user_model();
+          console.log('-----------------------= company =-----------------------');
+            this.get_company_model();
         },
         methods:{
             deleteAlert(id){
@@ -204,43 +208,25 @@
                 console.log(value);
             },
 
-            async get_user_info () {
-               console.log('-=-=-=-=-=    ------');
-                const uid = odooRpc.env.uid
-                console.log('------uid -----',uid);
-                const Model = odooRpc.env.model('res.users');
+            async get_company_model () {
 
-                const res = await Model.read(uid, ['name', 'email', 'company_id'])
-                console.log('===== user_info =====', res)
-                return res;
-            },
-            async user_model_fields () {
-                const Model = odooApi.env.model('res.users');
-                const allfields = [];
-                const attributes = [];
-                const res = await Model.fields_get(allfields, attributes);
-                console.log('----- user_model_fields ------', res);
-                return res;
-            },
-            async get_user_model () {
-
-                const Model = odooRpc.env.model('res.users');
-                const domain = [['company_id.name','=','comp1']];
-                const fields = ['id','name','login','mobile','email','display_name','image_1920','function','company_id','category_id','comment','ref','user_id'];
-                
                 // const domain = [];
                 // const fields = [];
+
+                const companyModel = odooRpc.env.model('res.company');
+                const fields = ['id','name','mobile','email','display_name','vat','logo','company_registry','user_ids'];
+                
                 const limit = 8;
                 const offset = 0;
                 const order = 'display_name';
-                const result = await Model.search_read({
+                const result = await companyModel.search_read({
                     domain,
                     fields,
                     offset,
                     limit,
                     order
                 });
-                console.log('---- get_user_model ----',result);
+                console.log('---- get_company_model ----',result);
                 this.userData = result;
             }
         }
@@ -249,7 +235,7 @@
 <style lang='less' scoped>
     /deep/.ant-table {
         background-color: white;
-        margin: 10px 20px;
+        margin: 10px 20px
     }
     #root > .ant-btn {
         float: right;

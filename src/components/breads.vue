@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-04-13 11:50:28
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-08 22:08:36
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-09 15:15:35
  * @Description: breadCrumb
 -->
 
@@ -51,12 +51,14 @@
           '/financial/rulesList/rulesDetail':'规则详情',
           '/financial/invoiceList':'发票列表',
           '/financial/invoiceList/invoiceDetail':'发票详情',
-
       
-          '/users':'用户列表',
-          '/user':'用户',
+          '/user':'用户信息',
           '/user/userList':'用户列表',
           '/user/userList/invoiceDetail':'用户详情',
+           
+          '/company':'公司信息',
+          '/company/companyList':'公司列表',
+          '/company/companyList/companyDetail':'公司详情',
         }
       }
     },

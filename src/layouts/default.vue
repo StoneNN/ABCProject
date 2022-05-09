@@ -1,14 +1,14 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-08 10:30:18
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-09 15:15:15
  * @Descripttion: Default Layout
 -->
 
 
 <template>
-  <a-layout id="components-layout-demo-side" style="height: 100vh">
+  <a-layout id="components-layout-demo-side" style="height: 100vh; width:100%">
     <a-layout-sider v-model="collapsed" collapsible>
       <div class="logo">{{ appName }}</div>
       <a-menu 
@@ -59,7 +59,7 @@
       <a-layout-content style="margin: 0 16px;">
         <BreadCrumbRouter :currentPath="currentPath"/>
         <div
-          :style="{ padding: '24px', background: '#fff', minHeight: '360px' }"
+          :style="{ padding: '0px', background: '#fff', minHeight: '360px' }"
         >
           <router-view></router-view>
         </div>
@@ -159,7 +159,13 @@
           key: '用户信息',
           title: '用户信息',
           icon:'team',
-          path: '/users',
+          path: '/user',
+        },
+        {
+          key: '公司信息',
+          title: '公司信息',
+          icon:'cluster',
+          path: '/company',
         },
         {
           key: '财务信息',
@@ -186,7 +192,7 @@
             },
           ],
         },
-        
+        ///////////////
         // {
         //   key: '用户信息',
         //   title: '用户信息',

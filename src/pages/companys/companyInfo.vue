@@ -1,54 +1,42 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:33
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-09 17:27:17
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-08 22:20:14
  * @Descripttion: 
 -->
 
 <template>
   <div>
     <a-descriptions title="用户详情" bordered :column='3'>
-      <a-descriptions-item label="用户ID" :span="1">
+      <a-descriptions-item label="用户ID" :span="3">
         {{ userData.id }}
       </a-descriptions-item>
-      <a-descriptions-item label="用户姓名" :span="1">
+      <a-descriptions-item label="用户名称" :span="3">
         {{ userData.name }}
       </a-descriptions-item>
-      <a-descriptions-item label="职位">
-        {{ userData.function }}
+      <a-descriptions-item label="商品规格">
+        {{ userData.standards }}
       </a-descriptions-item>
-      <a-descriptions-item label="电话">
-        {{ userData.mobile }}
+      <a-descriptions-item label="用户日期">
+        {{ userData.date }}
       </a-descriptions-item>
-      <a-descriptions-item label="邮箱">
-        {{ userData.email }}
+      <a-descriptions-item label="用户数量">
+        {{ userData.quantity }}
       </a-descriptions-item>
-      <a-descriptions-item label="账号">
-        {{ userData.login }}
+      <a-descriptions-item label="商品单价">
+        {{ userData.unitPrice }}
       </a-descriptions-item>
-      <a-descriptions-item label="所属公司" :span="2">
-        {{ userData.category_id[0] }}
+      <a-descriptions-item label="商品折扣" :span="2">
+        {{ userData.discount }}
       </a-descriptions-item>
-      <a-descriptions-item label="头像">
-        {{ userData.image_1920 }}
+      <a-descriptions-item label="商品总价">
+        {{ userData.total }}
       </a-descriptions-item>
-      <a-descriptions-item label="ref" :span="2">
-        {{ userData.ref }}
+      <a-descriptions-item label="总价大写" :span="2">
+        {{ userData.totalBig }}
       </a-descriptions-item>
-      <a-descriptions-item label="user_id" :span="2">
-        {{ userData.user_id }}
-      </a-descriptions-item>
-      <a-descriptions-item label="display_name" :span="2">
-        {{ userData.display_name }}
-      </a-descriptions-item>
-      <a-descriptions-item label="company_id" :span="2">
-        {{ userData.company_id }}
-      </a-descriptions-item>
-      <a-descriptions-item label="备注" :span="2">
-        {{ userData.comment }}
-      </a-descriptions-item>
-      <!-- <a-descriptions-item label="购买方" :span="3">
+      <a-descriptions-item label="购买方" :span="3">
         <h4>名称:</h4>
         {{ userData.buyer }}
         <br />
@@ -75,7 +63,7 @@
         <h4>电话:</h4>
         {{ userData.sPhone }}
         <br />
-      </a-descriptions-item> -->
+      </a-descriptions-item>
     </a-descriptions>
 
   </div>
@@ -86,7 +74,7 @@ import { Table, Descriptions, Divider, Button } from "ant-design-vue";
 // import axios from 'axios';
 import "ant-design-vue/dist/antd.css";
 // import jsonData from '@/assets/ordersData.json';
-import odooRpc from '@/odoorpc';
+import odooRpc from '@/odoorpc'
 
 Vue.use(Table).use(Descriptions).use(Divider).use(Button);
 
@@ -96,39 +84,35 @@ export default {
   name: "InvoiceDetailCpnt",
   data() {
     return {
-        userData:[],
+        userData:{}
     };
   },
   mounted() {
     this.getData();
   },
   methods:{
-    async getData () {
-      try {
+    async getData(){
+
         // const oneData = jsonData.filter((obj)=>{
 
         //   return obj.id == this.$route.query.orderId;
         // });
 
         // const uid = odooRpc.env.this.$route.query.userId;
-      
-        const uid = parseInt(this.$route.query.userId);
-        console.log('---- uid ----',uid);
-        const userModel = odooRpc.env.model('res.users');
-        
-        // const res = await userModel.read(uid, {fields:['id','name']});
+        console.log('------uid -----',this.$route.query.userId);
+        const Model = odooRpc.env.model('res.users');
 
-        const res = await userModel.read(uid, ['id','name','login','mobile','email','display_name','image_1920','function','company_id','category_id','comment','ref','user_id']);
-        this.userData = res[0];
-        console.log('===== user_info =====', this.userData);
-      } catch (err) {
-        console.log(err)
-      }
+        const res = await Model.read(this.$route.query.userId, ['id','name','login','mobile','email','display_name','image_1920','function','company_id','category_id','comment','ref','user_id']);
+        console.log('===== user_info =====', res)
+        
+        console.log('-------=-===',res);
+
+        this.userData = res;
+        // this.contentDatas = oneData[0].content;
     }
   }
 };
 </script>
-
 <style  lang='less' scoped>
     /deep/.ant-descriptions {
     margin: 40px 20px 0px 20px;

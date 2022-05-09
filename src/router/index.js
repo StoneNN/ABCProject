@@ -1,8 +1,8 @@
 /*
  * @Author: Nn
  * @Date: 2022-04-25 17:05:44
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-08 22:05:33
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-09 17:45:17
  * @Description: 
  */
 
@@ -25,6 +25,8 @@ import RulesDetail from '@/pages/bills/rules/rulesDetail.vue';
 // import AdminUser from '../pages/users/adminUser.vue';
 import UserList from '@/pages/users/userList';
 import UserInfo from '@/pages/users/userInfo';
+import CompanyList from '@/pages/companys/companyList';
+import CompanyInfo from '@/pages/companys/companyInfo';
 
 import Login from '@/pages/login.vue';
 import Register from '@/pages/register.vue';
@@ -80,12 +82,12 @@ const invoiceRoutes = [
                 component:Home
             },
 
-            {
-                path:'/users',
-                name:'users',
-                meta:{title:'用户列表'},
-                component:UserList
-            },
+            // {
+            //     path:'/users',
+            //     name:'users',
+            //     meta:{title:'用户列表'},
+            //     component:UserList
+            // },
 
             {
                 path:'/financial',
@@ -159,13 +161,13 @@ const invoiceRoutes = [
             // {
             //     path:'user/adminUser',
             //     name:'adminUser',
-            //     meta:{title:'超级用户用户'},
+            //     meta:{title:'超级用户'},
             //     component:AdminUser
             // },
             {
                 path:'user/userList',
                 component:{render(c) { return c('router-view')  }},
-                meta:{title:'订单'},
+                meta:{title:'用户信息'},
                 redirect:'user/userList',
                 children:[
                     {
@@ -182,7 +184,30 @@ const invoiceRoutes = [
                     },
                 ]
             },
-
+            {
+                path:'/company',
+                redirect:'company/companyList'
+            },
+            {
+                path:'company/companyList',
+                component:{render(c) { return c('router-view')  }},
+                meta:{title:'公司信息'},
+                redirect:'company/companyList',
+                children:[
+                    {
+                        path:'',
+                        name:'companyList',
+                        meta:{title:'公司列表'},
+                        component:CompanyList
+                    },
+                    {
+                        path:'companyInfo',
+                        name:'companyInfo',
+                        meta:{title:'公司信息'},
+                        component:CompanyInfo
+                    },
+                ]
+            },
             {
                 path:'testPage',
                 name:'Test',
