@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:33
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-09 17:27:17
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-09 22:59:16
  * @Descripttion: 
 -->
 
@@ -132,6 +132,7 @@ export default {
 <style  lang='less' scoped>
     /deep/.ant-descriptions {
     margin: 40px 20px 0px 20px;
+    padding-top: 20px;
     }
     /deep/.ant-table {
         background-color: white;

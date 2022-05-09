@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-09 17:42:08
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-09 22:58:20
  * @Descripttion: 
 -->
 
@@ -44,9 +44,9 @@
         <template slot="action" slot-scope="text,record">
             <router-link 
                 :to="{
-                    path:'/user/userList/userInfo',
+                    path:'/company/companyList/companyInfo',
                     query:{
-                        userId:record.id
+                        companyId:record.id
                     }
                 }"
             >
@@ -61,32 +61,31 @@
 <script>
 
     import odooRpc from '@/odoorpc';
-    import odooApi from '@/odooapi';
+    // import odooApi from '@/odooapi';
     
     const columns = [
         {
-            title: '用户ID',
+            title: '公司ID',
             dataIndex:'id',
             key: 'id',
             align:'center',
             slots: { title: 'userId' },
             scopedSlots: { customRender: 'userId' },
+            width:'75px'
+        },
+         {
+            title: '公司编号',
+            dataIndex:'vat',
+            key: 'vat',
+            align:'center',
             width:'15%'
-
         },
         {
-            title: '姓名',
+            title: '公司名称',
             dataIndex:'name',
             key: 'name',
             align:'center',
-            width:'20%'
-
-        },
-        {
-            title: '账号',
-            dataIndex: 'login',
-            key: 'login',
-            align:'center',
+            // width:'20%'
         },
         {
             title: '手机号',
@@ -105,61 +104,6 @@
             dataIndex:'display_name',
             key: 'display_name',
             align:'center',
-        },
-        {
-            title: '头像',
-            dataIndex:'image_1920',
-            key: 'image_1920',
-            align:'center',
-            scopedSlots:{ customRender: 'image_1920' }
-        },
-        {
-            title: '职位',
-            dataIndex:'function',
-            key: 'function',
-            align:'center',
-            scopedSlots: {customRender:'function'},
-            width:'15%'
-        },
-        {
-            title: '公司id',
-            dataIndex:'company_id',
-            key: 'company_id',
-            align:'center',
-            scopedSlots: {customRender:'company_id'},
-            width:'15%'
-        },
-        {
-            title: '??',
-            dataIndex:'category_id',
-            key: 'category_id',
-            align:'center',
-            scopedSlots: {customRender:'category_id'},
-            width:'15%'
-        },
-        {
-            title: '销售经理id',
-            dataIndex:'user_id',
-            key: 'user_id',
-            align:'center',
-            scopedSlots: {customRender:'user_id'},
-            width:'15%'
-        },
-        {
-            title: '职工编号',
-            dataIndex:'ref',
-            key: 'ref',
-            align:'center',
-            scopedSlots: {customRender:'ref'},
-            width:'15%'
-        },
-        {
-            title: '备注',
-            dataIndex:'comment',
-            key: 'comment',
-            align:'center',
-            scopedSlots: {customRender:'comment'},
-            width:'15%'
         },
         {
             title: '操作',
@@ -210,7 +154,7 @@
 
             async get_company_model () {
 
-                // const domain = [];
+                const domain = [];
                 // const fields = [];
 
                 const companyModel = odooRpc.env.model('res.company');

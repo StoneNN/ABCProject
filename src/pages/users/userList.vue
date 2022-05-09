@@ -208,23 +208,23 @@
                console.log('-=-=-=-=-=    ------');
                 const uid = odooRpc.env.uid
                 console.log('------uid -----',uid);
-                const Model = odooRpc.env.model('res.users');
+                const userModel = odooRpc.env.model('res.users');
 
-                const res = await Model.read(uid, ['name', 'email', 'company_id'])
+                const res = await userModel.read(uid, ['name', 'email', 'company_id'])
                 console.log('===== user_info =====', res)
                 return res;
             },
             async user_model_fields () {
-                const Model = odooApi.env.model('res.users');
+                const userModel = odooApi.env.model('res.users');
                 const allfields = [];
                 const attributes = [];
-                const res = await Model.fields_get(allfields, attributes);
+                const res = await userModel.fields_get(allfields, attributes);
                 console.log('----- user_model_fields ------', res);
                 return res;
             },
             async get_user_model () {
 
-                const Model = odooRpc.env.model('res.users');
+                const userModel = odooRpc.env.model('res.users');
                 const domain = [['company_id.name','=','comp1']];
                 const fields = ['id','name','login','mobile','email','display_name','image_1920','function','company_id','category_id','comment','ref','user_id'];
                 
@@ -233,7 +233,7 @@
                 const limit = 8;
                 const offset = 0;
                 const order = 'display_name';
-                const result = await Model.search_read({
+                const result = await userModel.search_read({
                     domain,
                     fields,
                     offset,

@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-04-13 11:50:28
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-09 15:15:35
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-09 22:53:35
  * @Description: breadCrumb
 -->
 
@@ -54,11 +54,11 @@
       
           '/user':'用户信息',
           '/user/userList':'用户列表',
-          '/user/userList/invoiceDetail':'用户详情',
+          '/user/userList/userInfo':'用户详情',
            
           '/company':'公司信息',
           '/company/companyList':'公司列表',
-          '/company/companyList/companyDetail':'公司详情',
+          '/company/companyList/companyInfo':'公司详情',
         }
       }
     },
