@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-07 10:33:50
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-08 10:30:18
  * @Descripttion: Default Layout
 -->
 
@@ -156,6 +156,12 @@
           icon:'home'
         },
         {
+          key: '用户信息',
+          title: '用户信息',
+          icon:'team',
+          path: '/users',
+        },
+        {
           key: '财务信息',
           title: '财务信息',
           icon:'account-book',
@@ -180,31 +186,32 @@
             },
           ],
         },
-        {
-          key: '用户信息',
-          title: '用户信息',
-          icon:'team',
-          children:[
-            { 
-              key: '超级用户',
-              title: '超级用户',
-              path: '/user/adminUser',
-              icon:'-',
-            },
-            { 
-              key: '普通用户',
-              title: '普通用户',
-              path: '/user/normalUser',
-              icon:'-',
-            },
-            {
-                key: 'VIP用户',
-                title: 'VIP用户',
-                path: '/user/vipUser',
-                icon:'-',
-            }
-          ]
-        },
+        
+        // {
+        //   key: '用户信息',
+        //   title: '用户信息',
+        //   icon:'team',
+        //   children:[
+        //     { 
+        //       key: '超级用户',
+        //       title: '超级用户',
+        //       path: '/user/adminUser',
+        //       icon:'-',
+        //     },
+        //     { 
+        //       key: '普通用户',
+        //       title: '普通用户',
+        //       path: '/user/normalUser',
+        //       icon:'-',
+        //     },
+        //     {
+        //         key: 'VIP用户',
+        //         title: 'VIP用户',
+        //         path: '/user/vipUser',
+        //         icon:'-',
+        //     }
+        //   ]
+        // },
         {
           key:'5',
           path: '/testPage',
@@ -262,7 +269,7 @@
       showModal() {
         this.visible = true;
       },
-      handleOk(e) {
+      handleOk() {
         // this.ModalText = 'The modal will be closed after two seconds';
         this.confirmLoading = true;
         setTimeout(() => {
@@ -272,7 +279,7 @@
           this.$router.replace({ path: '/userLogin' });
         }, 1000);
       },
-      handleCancel(e) {
+      handleCancel() {
         console.log('Clicked cancel button');
         this.visible = false;
       },

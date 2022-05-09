@@ -2,79 +2,205 @@
  * @Author: Nn
  * @Date: 2022-04-26 15:39:21
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-05 00:06:49
+ * @LastEditTime: 2022-05-08 10:33:18
  * @Description: 
 -->
 
 
 <template>
-  <a-layout id="components-layout-demo-responsive">
-    
-     <a-layout-sider
-        breakpoint="lg"
-        collapsed-width="0"
-        @collapse="onCollapse"
-        @breakpoint="onBreakpoint"
+  <div>
+    <a-layout style="height: 100vh">
+      <a-layout-header
+        style="height: 69px; font-size: 30px; font-weight: bolder"
       >
-        <div class="logo">
-          智竞平台
+        <div class="layout-logo">
+          <img height="50px" width="50px" src="../assets/logo.png" />
         </div>
-        <a-menu theme="light" mode="inline" :default-selected-keys="['1']" id="abc-menu">
-          <a-menu-item key="1">
-            <a-icon type="user" />
-            <span class="nav-text">nav 1</span>
-          </a-menu-item>
-          <a-menu-item key="2">
-            <a-icon type="video-camera" />
-            <span class="nav-text">nav 2</span>
-          </a-menu-item>
-          <a-menu-item key="3">
-            <a-icon type="upload" />
-            <span class="nav-text">nav 3</span>
-          </a-menu-item>
-          <a-menu-item key="4">
-            <a-icon type="user" />
-            <span class="nav-text">nav 4</span>
-          </a-menu-item>
-        </a-menu>
-      </a-layout-sider>
-    <a-layout>
-     <a-layout-header >
-        <span>智力竞技比赛平台</span> 
+        <div
+          style="height: 69px; font-size: 30px; lineheight: 69px; color: white"
+        >
+          {{ appName }}
+        </div>
       </a-layout-header>
       <a-layout-content>
-        <div>
-          <router-view></router-view>
+        <div :style="{ background: '#fff' }">
+          <div style="float: right; margin: 100px 150px 0">
+            <a-card :title="loginTitle">
+              <a-form
+                :form="loginForm"
+                @submit="handleSubmit"
+                style="width: 300px"
+              >
+                <a-form-item>
+                  <a-input
+                    v-decorator="[
+                      'loginAccount',
+                      {
+                        rules: [
+                          {
+                            required: true,
+                            message: '请输入账号!',
+                            whitespace: true,
+                          },
+                        ],
+                      },
+                    ]"
+                    placeholder="请输入账号"
+                  >
+                    <a-icon
+                      slot="prefix"
+                      type="user"
+                      style="color: rgba(0, 0, 0, 0.25)"
+                    />
+                  </a-input>
+                </a-form-item>
+                <a-form-item>
+                  <a-input
+                    v-decorator="[
+                      'loginPassword',
+                      { rules: [{ required: true, message: '请输入密码！' }] },
+                    ]"
+                    type="password"
+                    placeholder="请输入密码"
+                  >
+                    <a-icon
+                      slot="prefix"
+                      type="lock"
+                      style="color: rgba(0, 0, 0, 0.25)"
+                    />
+                  </a-input>
+                </a-form-item>
+                <a-form-item>
+                  <a-button
+                    type="primary"
+                    html-type="submit"
+                    class="login-form-button"
+                  >
+                    登 录
+                  </a-button>
+                </a-form-item>
+              </a-form>
+            </a-card>
+          </div>
         </div>
       </a-layout-content>
-       <a-layout-footer style="textalign: center">
-      北京欧德慧通信息技术有限公司
-    </a-layout-footer>
+      <a-layout-footer
+        style="
+          height: 40px;
+          line-height: 40px;
+          padding: 0px;
+          text-align: center;
+          font-size: 10px;
+          font-weight: bolder;
+          backgroundcolor: lightGray;
+        "
+      >
+        {{ appCompany }}
+      </a-layout-footer>
     </a-layout>
-   
-  </a-layout>
+  </div>
 </template>
 <script>
+import Vue from "vue";
+import { Layout, Icon, Menu, Input, Form, Card } from "ant-design-vue";
+import "ant-design-vue/dist/antd.css";
+import odooRpc from "@/odoorpc";
 
-  import Vue from "vue";
-  import { Layout, Table, Icon, Menu, Dropdown} from "ant-design-vue";
-  import 'ant-design-vue/dist/antd.css';
-  
-  Vue.use(Layout).use(Table).use(Icon).use(Menu).use(Dropdown);
+Vue.use(Layout).use(Form).use(Icon).use(Menu).use(Input).use(Card);
+import { mapActions } from "vuex";
 
 export default {
+  name: "LoginCpnt",
+  data() {
+    return {
+      appCompany: process.env.VUE_APP_COMPANY,
+      appName: process.env.VUE_APP_NAME,
+      loginTitle: process.env.VUE_APP_LOGIN_TITLE,
+    };
+  },
+  beforeCreate() {
+    this.loginForm = this.$form.createForm(this);
+  },
+  mounted() {
+    console.log("------ process.env -------", process.env);
+  },
   methods: {
-    onCollapse(collapsed, type) {
-      console.log(collapsed, type);
+    ...mapActions(["handleLogin", "getUserInfo"]),
+    check(rule, value, callback) {
+      console.log(rule + "----" + value);
+      callback();
+      // callback('Two passwords that you enter is inconsistent!')
     },
-    onBreakpoint(broken) {
-      console.log(broken);
+    handleSubmit(e) {
+      e.preventDefault();
+      this.loginForm.validateFields(async (err, values) => {
+        console.log("------ login ------", values);
+        const { loginAccount, loginPassword } = values;
+        const db = process.env.VUE_APP_ODOO_DB;
+
+        const res = await odooRpc.web.session.authenticate({
+          db,
+          login: loginAccount,
+          password: loginPassword,
+        });
+
+        console.log("======= login =======", res);
+        // return res;
+        if (res.uid) {
+          // localStorage.setItem('userName',res.name);
+          const session = odooRpc.env;
+          console.log("==== session ====", session);
+          this.$router.push({
+            name: "home",
+          });
+        }
+
+        //   this.$router.push({
+        //     name: 'adminCenter'
+        //   })
+
+        // if (!err) {
+        //   this.handleLogin({
+        //     loginAccount: this.loginForm.getFieldValue('loginAccount'),
+        //     loginPassword: this.$encruption(this.loginForm.getFieldValue('loginPassword'))
+        //   }).then(res => {
+        //     if (this.token != '' && res.code == 200) {
+        //       this.getUserInfo().then(res => {
+        //         if (res.code = 200) {
+        //           this.$router.push({
+        //             name: 'adminCenter'
+        //           })
+        //         }
+        //       })
+        //     } else {
+        //       this.$message.error('账号密码错误！');
+        //     }
+        //   })
+        // }
+      });
+    },
+  },
+  computed: {
+    msg() {
+      return this.$store.getters.msg;
+    },
+    token() {
+      return this.$store.getters.token;
     },
   },
 };
 </script>
 
 <style scoped>
+.layout-logo {
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  float: left;
+  position: relative;
+  left: 20px;
+}
+
 #components-layout-demo-responsive {
     text-align: center;
     height: 100%;

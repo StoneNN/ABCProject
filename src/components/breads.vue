@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-04-13 11:50:28
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-04 23:27:04
+ * @LastEditTime: 2022-05-08 22:08:36
  * @Description: breadCrumb
 -->
 
@@ -52,9 +52,11 @@
           '/financial/invoiceList':'发票列表',
           '/financial/invoiceList/invoiceDetail':'发票详情',
 
+      
+          '/users':'用户列表',
           '/user':'用户',
-          '/user/adminUser':'超级用户',
-
+          '/user/userList':'用户列表',
+          '/user/userList/invoiceDetail':'用户详情',
         }
       }
     },

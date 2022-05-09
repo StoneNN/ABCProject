@@ -1,8 +1,8 @@
 /*
  * @Author: Nn
  * @Date: 2022-04-25 17:05:44
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-07 10:04:22
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-08 22:05:33
  * @Description: 
  */
 
@@ -22,11 +22,12 @@ import InvoiceList from '../pages/bills/invoices/InvoiceList.vue';
 import InvoiceDetail from '../pages/bills/invoices/InvoiceDetail.vue';
 import RulesList from '@/pages/bills/rules/rulesList.vue';
 import RulesDetail from '@/pages/bills/rules/rulesDetail.vue';
-import AdminUser from '../pages/users/adminUser.vue';
+// import AdminUser from '../pages/users/adminUser.vue';
 import UserList from '@/pages/users/userList';
 import UserInfo from '@/pages/users/userInfo';
 
 import Login from '@/pages/login.vue';
+import Register from '@/pages/register.vue';
 import TestView from '@/components/TestRpc';
 
 import odooApi from '@/odooapi';
@@ -41,6 +42,12 @@ const loginRoutes = [
         name:'userLogin',
         meta:{title:'用户登录'},
         component:Login
+    },
+    {
+        path:'/userRegister',
+        name:'userRegister',
+        meta:{title:'用户注册'},
+        component:Register
     }
     // {
     //     path:'/userLogin',
@@ -71,6 +78,13 @@ const invoiceRoutes = [
                 name:'home',
                 meta:{title:'首页'},
                 component:Home
+            },
+
+            {
+                path:'/users',
+                name:'users',
+                meta:{title:'用户列表'},
+                component:UserList
             },
 
             {
@@ -140,14 +154,14 @@ const invoiceRoutes = [
 
             {
                 path:'/user',
-                redirect:'user/adminUser'
+                redirect:'user/userList'
             },
-            {
-                path:'user/adminUser',
-                name:'adminUser',
-                meta:{title:'超级用户用户'},
-                component:AdminUser
-            },
+            // {
+            //     path:'user/adminUser',
+            //     name:'adminUser',
+            //     meta:{title:'超级用户用户'},
+            //     component:AdminUser
+            // },
             {
                 path:'user/userList',
                 component:{render(c) { return c('router-view')  }},
