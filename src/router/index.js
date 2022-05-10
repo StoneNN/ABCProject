@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-04-25 17:05:44
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-09 17:45:17
+ * @LastEditTime: 2022-05-10 10:36:58
  * @Description: 
  */
 
@@ -22,11 +22,16 @@ import InvoiceList from '../pages/bills/invoices/InvoiceList.vue';
 import InvoiceDetail from '../pages/bills/invoices/InvoiceDetail.vue';
 import RulesList from '@/pages/bills/rules/rulesList.vue';
 import RulesDetail from '@/pages/bills/rules/rulesDetail.vue';
-// import AdminUser from '../pages/users/adminUser.vue';
-import UserList from '@/pages/users/userList';
-import UserInfo from '@/pages/users/userInfo';
-import CompanyList from '@/pages/companys/companyList';
-import CompanyInfo from '@/pages/companys/companyInfo';
+// import AdminUser from '../pages/user/adminUser.vue';
+import UserList from '@/pages/user/userList';
+import UserInfo from '@/pages/user/userInfo';
+import CompanyList from '@/pages/company/companyList';
+import CompanyInfo from '@/pages/company/companyInfo';
+import CustomerList from '@/pages/customer/customerList';
+import CustomerInfo from '@/pages/customer/customerInfo';
+import ProductList from '@/pages/product/productList';
+import ProductInfo from '@/pages/product/productInfo'
+
 
 import Login from '@/pages/login.vue';
 import Register from '@/pages/register.vue';
@@ -205,6 +210,56 @@ const invoiceRoutes = [
                         name:'companyInfo',
                         meta:{title:'公司信息'},
                         component:CompanyInfo
+                    },
+                ]
+            },
+
+            {
+                path:'/customer',
+                redirect:'customer/customerList'
+            },
+            {
+                path:'customer/customerList',
+                component:{render(c) { return c('router-view')  }},
+                meta:{title:'客户信息'},
+                redirect:'customer/customerList',
+                children:[
+                    {
+                        path:'',
+                        name:'customerList',
+                        meta:{title:'客户列表'},
+                        component:CustomerList
+                    },
+                    {
+                        path:'companyInfo',
+                        name:'companyInfo',
+                        meta:{title:'客户信息'},
+                        component:CustomerInfo
+                    },
+                ]
+            },
+
+            {
+                path:'/product',
+                redirect:'product/productList'
+            },
+            {
+                path:'product/productList',
+                component:{render(c) { return c('router-view')  }},
+                meta:{title:'产品信息'},
+                redirect:'product/productList',
+                children:[
+                    {
+                        path:'',
+                        name:'productList',
+                        meta:{title:'产品列表'},
+                        component:ProductList
+                    },
+                    {
+                        path:'productInfo',
+                        name:'productInfo',
+                        meta:{title:'产品信息'},
+                        component:ProductInfo
                     },
                 ]
             },

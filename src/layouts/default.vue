@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-09 15:15:15
+ * @LastEditTime: 2022-05-10 18:04:05
  * @Descripttion: Default Layout
 -->
 
@@ -158,7 +158,7 @@
         {
           key: '用户信息',
           title: '用户信息',
-          icon:'team',
+          icon:'user',
           path: '/user',
         },
         {
@@ -166,6 +166,18 @@
           title: '公司信息',
           icon:'cluster',
           path: '/company',
+        },
+        {
+          key: '客户信息',
+          title: '客户信息',
+          icon:'team',
+          path: '/customer',
+        },
+        {
+          key: '产品信息',
+          title: '产品信息',
+          icon:'gold',
+          path: '/product',
         },
         {
           key: '财务信息',
@@ -226,7 +238,7 @@
         }
         ],
         //当前路由路径
-        currentPath:"",
+        currentPath:'',
         //
         sessionInfo: odooApi.web.session.session_info || {},
         //modal
@@ -245,12 +257,21 @@
     },
     mounted(){
       console.log('-=-=-=-=-=-=-=-=-=-=-=-=-=-=-',this);
-      
+      console.log('-=-=-=-=-=-=- current path -=-=-=-=-=-=-=-=-',this.$route.path);
+    },
+    watch:{
+      '$route'(to, from){
+        console.log('currentPath 检测到',to,from);
+        this.currentPath = to.path;
+        localStorage.setItem('currentPath',to.path);
+      }
     },
     methods: {
       // 点击菜单，路由跳转,注意的是当点击MenuItem才会触发此函数
       menuClick({ item, key, keyPath }) {
-        console.log('------- menuClick -------',item,key,keyPath);
+        console.log('------- menuClick1 -------',item);
+        console.log('------- menuClick2 -------',key);
+        console.log('------- menuClick3 -------',keyPath);
         // if (key) {
           
         // }

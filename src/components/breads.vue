@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-04-13 11:50:28
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-09 22:53:35
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-10 18:01:18
  * @Description: breadCrumb
 -->
 
@@ -12,7 +12,7 @@
 
     <a-breadcrumb separator="/">
       <a-breadcrumb-item
-        v-for="(item, index) of lists"
+        v-for="(item, index) of breadLists"
         :key="index"
         style="padding: 5px"
       >
@@ -35,11 +35,11 @@
   export default {
     name:"BreadCrumbCpnt",
     props:{
-      currentPath:String
+      currentPath:String,
     },
     data(){
       return{
-        lists:[],
+        breadLists:[],
         breadCrumbNameMap:{
 
           '/home':'首页',
@@ -59,19 +59,54 @@
           '/company':'公司信息',
           '/company/companyList':'公司列表',
           '/company/companyList/companyInfo':'公司详情',
+
+          '/customer':'客户信息',
+          '/customer/customerList':'客户列表',
+          '/customer/customerList/customerInfo':'客户详情',
+
+          '/product':'产品信息',
+          '/product/productList':'产品列表',
+          '/product/productList/productInfo':'产品详情',
         }
       }
     },
     watch: {
-      $route: "init",
+      // $route: "init",
     },
     mounted() {
-      console.log('-----this----',this);
+      console.log('-----this 1----',this);
       console.log('-----this.$route.path----',this.$route.path);
-      console.log('----- currentPath -----',this.currentPath);
-      console.log(this.$route.matched);
+      // this.getCurrentPath();
     },
     methods: {
+       getCurrentPath () {
+
+        const localPath = localStorage.getItem('currentPath');
+        const pathSnippets = localPath.split("/").filter(i => i);
+        console.log("-----pathSnippets----", pathSnippets);
+
+        var breads = pathSnippets.map((_, index) => {
+          const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
+          console.log("-----url----", url);
+          return (
+            url
+          );
+        });
+        console.log('----breads--',breads);
+        // 、、、
+        // if (matched.length && matched[0].name !== "home") {
+        //   matched = [
+        //     { 
+        //       path:'/home',
+        //       name:'home',
+        //       meta:{title:'首页'}
+        //     },
+        //     ...matched
+        //   ];
+        // }
+        this.breadLists = breads;
+        console.log('====== route breadLists ======',this.breadLists);
+      },
       init(to, from) {
         console.log('====== route ======',this.$route);
         console.log('====== route to ======',to.path, from.path);
@@ -99,8 +134,8 @@
         //     ...matched
         //   ];
         // }
-        this.lists = breads;
-        console.log('====== route lists ======',this.lists);
+        this.breadLists = breads;
+        console.log('====== route breadLists ======',this.breadLists);
       },
     },
   };

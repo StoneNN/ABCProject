@@ -1,16 +1,12 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-09 22:58:20
- * @Descripttion: 
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-10 14:27:03
+ * @Descripttion: 用户列表
 -->
 
-<!--
-<template>
-        <h1>userList页面</h1>
-</template>
--->
+
 <template>
   <div id="root">
       <!-- <span>999</span> -->
@@ -58,6 +54,7 @@
     </a-table>
   </div>
 </template>
+
 <script>
 
     import odooRpc from '@/odoorpc';
