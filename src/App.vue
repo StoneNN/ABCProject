@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-04-25 16:36:39
- * @LastEditors: Nn
- * @LastEditTime: 2022-04-25 17:41:04
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-10 22:49:48
  * @Description: 
 -->
 <template>
@@ -29,7 +29,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: gray;
+  background-color: white;
   height: 100%;
 }
 </style>

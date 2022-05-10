@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-04-13 11:50:28
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-10 18:01:18
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-10 21:56:08
  * @Description: breadCrumb
 -->
 
@@ -21,7 +21,6 @@
         }}</router-link>
       </a-breadcrumb-item>
     </a-breadcrumb>
-    <div>{{currentPath}}</div>
   </div>
 </template>
 
@@ -71,12 +70,12 @@
       }
     },
     watch: {
-      // $route: "init",
+      $route: "init",
     },
     mounted() {
       console.log('-----this 1----',this);
       console.log('-----this.$route.path----',this.$route.path);
-      // this.getCurrentPath();
+      this.getCurrentPath();
     },
     methods: {
        getCurrentPath () {
@@ -93,17 +92,7 @@
           );
         });
         console.log('----breads--',breads);
-        // 、、、
-        // if (matched.length && matched[0].name !== "home") {
-        //   matched = [
-        //     { 
-        //       path:'/home',
-        //       name:'home',
-        //       meta:{title:'首页'}
-        //     },
-        //     ...matched
-        //   ];
-        // }
+      
         this.breadLists = breads;
         console.log('====== route breadLists ======',this.breadLists);
       },
@@ -111,6 +100,8 @@
         console.log('====== route ======',this.$route);
         console.log('====== route to ======',to.path, from.path);
         //、、、
+        localStorage.setItem('currentPath',to.path);
+        localStorage.getItem('currentPath');
 
         const pathSnippets = to.path.split("/").filter(i => i);
         console.log("-----pathSnippets----", pathSnippets);

@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-10 18:04:05
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-10 20:52:19
  * @Descripttion: Default Layout
 -->
 
@@ -57,7 +57,7 @@
         </a-dropdown>  
       </a-layout-header>  
       <a-layout-content style="margin: 0 16px;">
-        <BreadCrumbRouter :currentPath="currentPath"/>
+        <BreadCrumbRouter/>
         <div
           :style="{ padding: '0px', background: '#fff', minHeight: '360px' }"
         >
@@ -204,32 +204,6 @@
             },
           ],
         },
-        ///////////////
-        // {
-        //   key: '用户信息',
-        //   title: '用户信息',
-        //   icon:'team',
-        //   children:[
-        //     { 
-        //       key: '超级用户',
-        //       title: '超级用户',
-        //       path: '/user/adminUser',
-        //       icon:'-',
-        //     },
-        //     { 
-        //       key: '普通用户',
-        //       title: '普通用户',
-        //       path: '/user/normalUser',
-        //       icon:'-',
-        //     },
-        //     {
-        //         key: 'VIP用户',
-        //         title: 'VIP用户',
-        //         path: '/user/vipUser',
-        //         icon:'-',
-        //     }
-        //   ]
-        // },
         {
           key:'5',
           path: '/testPage',
@@ -263,7 +237,7 @@
       '$route'(to, from){
         console.log('currentPath 检测到',to,from);
         this.currentPath = to.path;
-        localStorage.setItem('currentPath',to.path);
+        // localStorage.setItem('currentPath',to.path);
       }
     },
     methods: {
