@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-09 17:30:41
+ * @LastEditTime: 2022-05-14 17:17:59
  * @Descripttion: userList页面
 -->
 
@@ -58,15 +58,15 @@
     import odooApi from '@/odooapi';
     
     const columns = [
-        {
-            title: '用户ID',
-            dataIndex:'id',
-            key: 'id',
-            align:'center',
-            slots: { title: 'userId' },
-            scopedSlots: { customRender: 'userId' },
-            width:'80px'
-        },
+        // {
+        //     title: '用户ID',
+        //     dataIndex:'id',
+        //     key: 'id',
+        //     align:'center',
+        //     slots: { title: 'userId' },
+        //     scopedSlots: { customRender: 'userId' },
+        //     width:'80px'
+        // },
         {
             title: '账号',
             dataIndex: 'login',
@@ -224,8 +224,9 @@
             },
             async get_user_model () {
 
+                const cid = odooApi.web.session.session_info.company_id;
                 const userModel = odooRpc.env.model('res.users');
-                const domain = [['company_id.name','=','comp1']];
+                const domain = [['company_id', '=', cid]];
                 const fields = ['id','name','login','mobile','email','display_name','image_1920','function','company_id','category_id','comment','ref','user_id'];
                 
                 // const domain = [];

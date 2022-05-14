@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:33
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-09 22:59:16
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-14 17:19:43
  * @Descripttion: 
 -->
 
@@ -28,7 +28,7 @@
         {{ userData.login }}
       </a-descriptions-item>
       <a-descriptions-item label="所属公司" :span="2">
-        {{ userData.category_id[0] }}
+        {{ userData.category_id }}
       </a-descriptions-item>
       <a-descriptions-item label="头像">
         {{ userData.image_1920 }}
@@ -36,13 +36,13 @@
       <a-descriptions-item label="ref" :span="2">
         {{ userData.ref }}
       </a-descriptions-item>
-      <a-descriptions-item label="user_id" :span="2">
+      <a-descriptions-item label="user_id" :span="1">
         {{ userData.user_id }}
       </a-descriptions-item>
-      <a-descriptions-item label="display_name" :span="2">
+      <a-descriptions-item label="全名" :span="2">
         {{ userData.display_name }}
       </a-descriptions-item>
-      <a-descriptions-item label="company_id" :span="2">
+      <a-descriptions-item label="company_id" :span="1">
         {{ userData.company_id }}
       </a-descriptions-item>
       <a-descriptions-item label="备注" :span="2">

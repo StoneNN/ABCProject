@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-10 14:27:03
+ * @LastEditTime: 2022-05-14 17:18:44
  * @Descripttion: 用户列表
 -->
 
@@ -58,18 +58,18 @@
 <script>
 
     import odooRpc from '@/odoorpc';
-    // import odooApi from '@/odooapi';
+    import odooApi from '@/odooapi';
     
     const columns = [
-        {
-            title: '公司ID',
-            dataIndex:'id',
-            key: 'id',
-            align:'center',
-            slots: { title: 'userId' },
-            scopedSlots: { customRender: 'userId' },
-            width:'75px'
-        },
+        // {
+        //     title: '公司ID',
+        //     dataIndex:'id',
+        //     key: 'id',
+        //     align:'center',
+        //     slots: { title: 'userId' },
+        //     scopedSlots: { customRender: 'userId' },
+        //     width:'75px'
+        // },
          {
             title: '公司编号',
             dataIndex:'vat',
@@ -151,7 +151,8 @@
 
             async get_company_model () {
 
-                const domain = [];
+                const cid = odooApi.web.session.session_info.company_id;
+                const domain = [['id', '=', cid]];
                 // const fields = [];
 
                 const companyModel = odooRpc.env.model('res.company');

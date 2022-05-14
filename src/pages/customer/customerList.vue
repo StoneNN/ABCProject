@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-05-10 10:12:23
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-10 14:30:59
+ * @LastEditTime: 2022-05-14 17:55:15
  * @Description: 客户列表
 -->
 
@@ -57,7 +57,8 @@
 <script>
     import Vue from 'vue'
     import odooRpc from '@/odoorpc';
-    
+    import odooApi from '@/odooapi';
+
     const columns = [
         {
             title: '公司ID',
@@ -148,7 +149,9 @@
 
             async get_customer_model () {
 
-                const domain = [];
+                const cid = odooApi.web.session.session_info.company_id;
+                const domain = [['company_id', '=', cid]];
+                // const domain = [];
                 // const fields = [];
 
                 const customerModel = odooRpc.env.model('res.partner');
