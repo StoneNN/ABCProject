@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-05-10 10:12:02
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-15 22:07:19
+ * @LastEditTime: 2022-05-16 23:04:06
  * @Description: 产品列表
 -->
 
@@ -139,7 +139,7 @@ export default {
 
 <style  lang='less' scoped>
     /deep/.ant-descriptions {
-    margin: 20px 20px 0px 20px;
+    margin: 10px 20px 0px 20px;
     padding-top: 20px;
     }
     /deep/.ant-table {
