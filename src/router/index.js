@@ -31,7 +31,7 @@ import CustomerList from '@/pages/customer/customerList';
 import CustomerInfo from '@/pages/customer/customerInfo';
 import ProductList from '@/pages/product/productList';
 import ProductInfo from '@/pages/product/productInfo'
-
+import ProductEdit from '@/pages/product/productEdit';
 
 import Login from '@/pages/login.vue';
 import Register from '@/pages/register.vue';
@@ -260,6 +260,12 @@ const invoiceRoutes = [
                         name:'productInfo',
                         meta:{title:'产品信息'},
                         component:ProductInfo
+                    },
+                    {
+                        path:'productEdit',
+                        name:'productEdit',
+                        meta:{title:'产品编辑'},
+                        component:ProductEdit
                     },
                 ]
             },
