@@ -1,15 +1,15 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 22:03:13
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-07 11:45:56
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-20 00:13:35
  * @Descripttion: 登录页面
 -->
 
 <template>
   <div>
     <a-layout style="height: 100vh">
-      <a-layout-header style="height:69px; font-size:30px; font-weight:bolder ">
+      <a-layout-header style="height:10vh; font-size:30px; font-weight:bolder ">
         <div class="layout-logo">
           <img height="50px" width="50px" src="../assets/logo.png"/>
         </div>
@@ -19,7 +19,7 @@
             {{ appName }}
         </div>
       </a-layout-header>
-      <a-layout-content>
+      <a-layout-content style="height:85vh">
         <div :style="{ background: '#fff'}">
           <div style="float: right; margin: 100px 150px 0">
             <a-card :title="loginTitle">
@@ -78,7 +78,7 @@
           </div>
         </div>
       </a-layout-content>
-      <a-layout-footer style="height:40px; line-height:40px; padding:0px; text-align: center; font-size: 10px; font-weight: bolder; backgroundColor:lightGray">
+      <a-layout-footer style="height:5vh; line-height:5vh; padding:0px; text-align: center; font-size: 10px; font-weight: bolder; backgroundColor:lightGray">
         {{ appCompany }}
       </a-layout-footer>
     </a-layout>

@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-10 20:52:19
+ * @LastEditTime: 2022-05-20 00:22:20
  * @Descripttion: Default Layout
 -->
 
@@ -35,7 +35,7 @@
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style=" position:relative; padding: 0; backgroundColor:lightGray; height:69px;">
+      <a-layout-header style=" position:relative; padding: 0; backgroundColor:lightGray; height:10vh;">
         <a-dropdown>
           <a class="ant-dropdown-link">
             <!-- 你好，用户001
@@ -56,7 +56,7 @@
           </a-menu>
         </a-dropdown>  
       </a-layout-header>  
-      <a-layout-content style="margin: 0 16px;">
+      <a-layout-content style="margin: 0 16px; height: 85vh;">
         <BreadCrumbRouter/>
         <div
           :style="{ padding: '0px', background: '#fff', minHeight: '360px' }"
@@ -75,7 +75,7 @@
           <p>{{ ModalText }}</p>
         </a-modal>
       </a-layout-content>
-      <a-layout-footer style="height:40px; line-height:40px; padding:0px; text-align: center; font-size: 10px; font-weight: bolder; backgroundColor:lightGray">
+      <a-layout-footer style="height:5vh; line-height:5vh; padding:0px; text-align: center; font-size: 10px; font-weight: bolder; backgroundColor:lightGray">
         {{ appCompany }}
       </a-layout-footer>
     </a-layout>
