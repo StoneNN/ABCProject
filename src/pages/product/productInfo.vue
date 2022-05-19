@@ -1,8 +1,13 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-10 10:12:02
+<<<<<<< HEAD
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-19 14:33:26
+ * @LastEditTime: 2022-05-19 16:12:04
+=======
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-16 23:04:06
+>>>>>>> temp
  * @Description: 产品列表
 -->
 
@@ -154,6 +159,7 @@ export default {
     /deep/.ant-descriptions {
     margin: 0px 10px 0px 10px;
     padding-top: 0px;
+
     }
     /deep/.ant-descriptions-item-content {
       padding: 5px 0px 2px 10px;

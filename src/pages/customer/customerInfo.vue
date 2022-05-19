@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-10 10:12:32
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-10 17:49:14
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-16 23:04:59
  * @Description: 客户信息
 -->
 
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import Vue from 'vue'
+    import Vue from 'vue';
  
     export default {
         name:"CustomerInfoCpnt",
