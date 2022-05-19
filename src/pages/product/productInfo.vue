@@ -1,13 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-10 10:12:02
-<<<<<<< HEAD
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-19 16:12:04
-=======
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-16 23:04:06
->>>>>>> temp
+ * @LastEditTime: 2022-05-19 17:04:41
  * @Description: 产品列表
 -->
 
@@ -73,40 +68,6 @@
         <a-descriptions-item label="重量" :span="2">
           {{ productData.weight }}
         </a-descriptions-item>
-        <!-- <a-descriptions-item label="company_id" :span="1">
-          {{ productData.company_id }}
-        </a-descriptions-item>
-        <a-descriptions-item label="备注" :span="2">
-          {{ productData.comment }}
-        </a-descriptions-item> -->
-        <!-- <a-descriptions-item label="购买方" :span="3">
-          <h4>名称:</h4>
-          {{ productData.buyer }}
-          <br />
-          <h4>纳税人识别号:</h4>
-          {{ productData.buyerId }}
-          <br />
-          <h4>地址:</h4>
-          {{ productData.bAddress }}
-          <br />
-          <h4>电话:</h4>
-          {{ productData.bPhone }}
-          <br />
-        </a-descriptions-item>
-        <a-descriptions-item label="销售方" :span="3">
-          <h4>名称:</h4>
-          {{ productData.seller }}
-          <br />
-          <h4>纳税人识别号:</h4>
-          {{ productData.sellerId }}
-          <br />
-          <h4>地址:</h4>
-          {{ productData.sAddress }}
-          <br />
-          <h4>电话:</h4>
-          {{ productData.sPhone }}
-          <br />
-        </a-descriptions-item> -->
       </a-descriptions>
   </div>
 </template>
