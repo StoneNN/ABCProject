@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-04-25 17:05:44
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-10 10:36:58
+ * @LastEditTime: 2022-05-20 14:51:18
  * @Description: 
  */
 
@@ -25,13 +25,17 @@ import RulesDetail from '@/pages/bills/rules/rulesDetail.vue';
 // import AdminUser from '../pages/user/adminUser.vue';
 import UserList from '@/pages/user/userList';
 import UserInfo from '@/pages/user/userInfo';
+
 import CompanyList from '@/pages/company/companyList';
 import CompanyInfo from '@/pages/company/companyInfo';
+
 import CustomerList from '@/pages/customer/customerList';
 import CustomerInfo from '@/pages/customer/customerInfo';
+
 import ProductList from '@/pages/product/productList';
 import ProductInfo from '@/pages/product/productInfo'
 import ProductEdit from '@/pages/product/productEdit';
+import ProductCreate from '@/pages/product/productCreate';
 
 import Login from '@/pages/login.vue';
 import Register from '@/pages/register.vue';
@@ -266,6 +270,12 @@ const invoiceRoutes = [
                         name:'productEdit',
                         meta:{title:'产品编辑'},
                         component:ProductEdit
+                    },
+                    {
+                        path:'productCreate',
+                        name:'productCreate',
+                        meta:{title:'新建产品'},
+                        component:ProductCreate
                     },
                 ]
             },

@@ -2,57 +2,59 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-14 17:18:44
+ * @LastEditTime: 2022-05-20 17:03:48
  * @Descripttion: 用户列表
 -->
 
 
 <template>
-  <div id="root">
-      <!-- <span>999</span> -->
-    <a-button type="primary">
-      批量删除
-    </a-button>
-    
-    <a-button type="primary">
-      新建公司
-    </a-button>
-    <a-button type="primary">
-      重置
-    </a-button>
-    
-    <a-input-search
-      placeholder="请输入公司名称"
-      enter-button="搜索"
-      size="default"
-      style="width:40%;"
-      @search="onSearch"
-    />
-    <a-table
-        :columns="columns" 
-        :data-source="userData"
-        :row-selection="rowSelection"
-        :row-key="record => record.id" 
-    >
-    
-        <a slot="orderCode" slot-scope="text">{{text}}</a>
-        <span slot="total" slot-scope="text">￥{{text}}</span>
-        <template slot="action" slot-scope="text,record">
-            <router-link 
-                :to="{
-                    path:'/company/companyList/companyInfo',
-                    query:{
-                        companyId:record.id
-                    }
-                }"
-            >
-                详情
-            </router-link>
-            <a-divider type="vertical" />
-            <a @click.prevent = "deleteAlert(record.id)">删除</a>
-        </template>
-    </a-table>
-  </div>
+    <div id="root">
+        <div id="root1">
+            <!-- <span>999</span> -->
+            <a-button type="primary">
+            批量删除
+            </a-button>
+            
+            <a-button type="primary">
+            新建公司
+            </a-button>
+            <a-button type="primary">
+            重置
+            </a-button>
+            
+            <a-input-search
+            placeholder="请输入公司名称"
+            enter-button="搜索"
+            size="default"
+            style="width:40%;"
+            @search="onSearch"
+            />
+        </div>
+        <a-table
+            :columns="columns" 
+            :data-source="userData"
+            :row-selection="rowSelection"
+            :row-key="record => record.id" 
+        >
+        
+            <a slot="orderCode" slot-scope="text">{{text}}</a>
+            <span slot="total" slot-scope="text">￥{{text}}</span>
+            <template slot="action" slot-scope="text,record">
+                <router-link 
+                    :to="{
+                        path:'/company/companyList/companyInfo',
+                        query:{
+                            companyId:record.id
+                        }
+                    }"
+                >
+                    详情
+                </router-link>
+                <a-divider type="vertical" />
+                <a @click.prevent = "deleteAlert(record.id)">删除</a>
+            </template>
+        </a-table>
+    </div>
 </template>
 
 <script>
@@ -175,19 +177,27 @@
     }
 </script>
 <style lang='less' scoped>
+   #root1 {
+        background-color: white;
+        width: 100%;
+        height: 50px;
+        position: relative;
+        top: 0;
+        left: 0;
+        .ant-btn {
+            float: right;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        .ant-input-search {
+            float: right;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+    }
     /deep/.ant-table {
         background-color: white;
-        margin: 10px 20px
-    }
-    #root > .ant-btn {
-        float: right;
-        margin-right: 20px;
-        margin-bottom: 10px;
-        margin-top: 10px;
-    }
-    #root > .ant-input-search {
-        float: right;
-        margin-right: 10px;
-        margin-top: 10px;
+        margin: 10px 20px;
     }
 </style>

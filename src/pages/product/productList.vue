@@ -1,55 +1,59 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-10 10:11:43
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-15 21:43:26
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-20 16:29:58
  * @Description: 产品列表
 -->
 
 <template>
-  <div id="root">
-    <a-button type="primary">
-      批量删除
-    </a-button>
-    <a-button type="primary">
-      新建产品
-    </a-button>
-    <a-button type="primary">
-      重置
-    </a-button>
-    <a-input-search
-      placeholder="请输入订单号码"
-      enter-button="搜索"
-      size="default"
-      style="width:40%;"
-      @search="onSearch"
-    />
+    <div id="root">
+        <div id="root1">
+            <a-button type="primary">
+            批量删除
+            </a-button>
 
-    <a-table
-        :columns="columns" 
-        :data-source="productData"
-        :row-selection="rowSelection"
-        :row-key="record => record.id" 
-    >
-    
-        <a slot="orderCode" slot-scope="text">{{text}}</a>
-        <span slot="total" slot-scope="text">￥{{text}}</span>
-        <template slot="action" slot-scope="text,record">
-            <router-link 
-                :to="{
-                    path:'/product/productList/productInfo',
-                    query:{
-                        productId:record.id
-                    }
-                }"
-            >
-                详情
-            </router-link>
-            <a-divider type="vertical" />
-            <a @click.prevent = "deleteAlert(record.id)">删除</a>
-        </template>
-    </a-table>
-  </div>
+            <a-button type="primary" @click="onCreateAction">
+            新建产品
+            </a-button>
+            
+            <a-button type="primary">
+            重置
+            </a-button>
+
+            <a-input-search
+                placeholder="请输入订单号码"
+                enter-button="搜索"
+                size="default"
+                style="width:40%;"
+                @search="onSearch"
+            />
+        </div>
+        <a-table
+            :columns="columns" 
+            :data-source="productData"
+            :row-selection="rowSelection"
+            :row-key="record => record.id" 
+        >
+
+            <a slot="orderCode" slot-scope="text">{{text}}</a>
+            <span slot="total" slot-scope="text">￥{{text}}</span>
+            <template slot="action" slot-scope="text,record">
+                <router-link 
+                    :to="{
+                        path:'/product/productList/productInfo',
+                        query:{
+                            productId:record.id
+                        }
+                    }"
+                >
+                    详情
+                </router-link>
+                <a-divider type="vertical" />
+                <a @click.prevent = "deleteAlert(record.id)">删除</a>
+            </template>
+        </a-table>
+    </div>
 </template>
 <script>
 
@@ -181,26 +185,39 @@
                 });
                 console.log('---- get productModel ----',result);
                 this.productData = result;
+            },
+            onCreateAction(){
+                console.log('--------- 新建产品 --------');
+                this.$router.push('/product/productList/productCreate');
             }
         },
 
     }
 </script>
 <style lang='less' scoped>
+
+    #root1 {
+        background-color: white;
+        width: 100%;
+        height: 50px;
+        position: relative;
+        top: 0;
+        left: 0;
+        .ant-btn {
+            float: right;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+        .ant-input-search {
+            float: right;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+    }
     /deep/.ant-table {
         background-color: white;
         margin: 10px 20px;
-    }
-    #root > .ant-btn {
-        float: right;
-        margin-right: 20px;
-        margin-bottom: 10px;
-        margin-top: 10px;
-    }
-    #root > .ant-input-search {
-        float: right;
-        margin-right: 10px;
-        margin-top: 10px;
     }
 </style>
 

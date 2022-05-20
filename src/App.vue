@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-04-25 16:36:39
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-10 22:49:48
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-20 14:29:25
  * @Description: 
 -->
 <template>
@@ -31,5 +31,10 @@ export default {
   color: #2c3e50;
   background-color: white;
   height: 100%;
+  /* position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0; */
 }
 </style>

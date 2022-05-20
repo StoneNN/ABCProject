@@ -2,18 +2,19 @@
  * @Author: Nxf
  * @Date: 2022-05-15 21:47:22
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-19 17:35:46
+ * @LastEditTime: 2022-05-20 16:39:05
  * @Descripttion:  产品信息编辑
 -->
 
 <template>
-  <div style="paddingTop:20px">
+  <div style="paddingTop:20px; paddingBottom:20px;">
     <a-form-model 
       layout="horizontal" 
       :model="formInline" 
       @submit="handleSubmit" 
       @submit.native.prevent
       style="width:400px; margin:0 auto"
+      v-bind="layout"
     >
       <a-form-model-item label="产品ID">
         <a-input v-model="productData.id" placeholder="产品ID">
@@ -25,42 +26,42 @@
           <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item label="产品名称">
+      <a-form-model-item label="产品全名">
         <a-input v-model="productData.display_name" placeholder="产品全名">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item label="产品名称">
+      <!-- <a-form-model-item label="产品条码">
         <a-input v-model="productData.barcode" placeholder="产品条码">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item label="产品名称">
+      <a-form-model-item label="产品类别">
         <a-input v-model="productData.categ_id" placeholder="产品类别">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item label="产品名称">
+      <a-form-model-item label="产品编码">
         <a-input v-model="productData.default_code" placeholder="产品编码">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
-      </a-form-model-item>
-      <a-form-model-item label="产品名称">
+      </a-form-model-item> -->
+      <a-form-model-item label="产品售价">
         <a-input v-model="productData.list_price" placeholder="产品售价">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item label="产品名称">
+      <a-form-model-item label="产品成本价">
         <a-input v-model="productData.standard_price" placeholder="产品成本价">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item label="产品名称">
+      <a-form-model-item label="产品体积">
         <a-input v-model="productData.volume" placeholder="产品体积">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item label="产品名称">
+      <a-form-model-item label="产品重量">
         <a-input v-model="productData.weight" placeholder="产品重量">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
@@ -106,6 +107,10 @@ export default {
       formInline: {
         user: '',
         password: '',
+      },
+      layout: {
+        labelCol: { span: 5 },
+        wrapperCol: { span: 14 },
       },
     };
   },
