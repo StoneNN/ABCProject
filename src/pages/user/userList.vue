@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-20 17:06:28
+ * @LastEditTime: 2022-05-21 16:39:57
  * @Descripttion: userList页面
 -->
 
@@ -187,7 +187,6 @@
         },
         mounted(){
             console.log('------ get user info -------');
-            // this.get_user_info();
             // this.user_model_fields();
             this.get_user_model();
         },
@@ -205,16 +204,6 @@
                 console.log(value);
             },
 
-            async get_user_info () {
-               console.log('-=-=-=-=-=    ------');
-                const uid = odooRpc.env.uid
-                console.log('------uid -----',uid);
-                const userModel = odooRpc.env.model('res.users');
-
-                const res = await userModel.read(uid, ['name', 'email', 'company_id'])
-                console.log('===== user_info =====', res)
-                return res;
-            },
             async user_model_fields () {
                 const userModel = odooApi.env.model('res.users');
                 const allfields = [];
@@ -271,5 +260,6 @@
     /deep/.ant-table {
         background-color: white;
         margin: 10px 20px;
+        width: 100%;
     }
 </style>

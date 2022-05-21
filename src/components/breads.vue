@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-04-13 11:50:28
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-20 14:51:56
+ * @LastEditTime: 2022-05-21 16:50:03
  * @Description: breadCrumb
 -->
 
@@ -14,9 +14,9 @@
       <a-breadcrumb-item
         v-for="(item, index) of breadLists"
         :key="index"
-        style="padding: 5px"
+        style="padding: 0px"
       >
-        <router-link :to="item" style="font-size: 13px">{{
+        <router-link :to="item" style="font-size: 12px;">{{
           breadCrumbNameMap[item]
         }}</router-link>
       </a-breadcrumb-item>
@@ -54,6 +54,7 @@
           '/user':'用户信息',
           '/user/userList':'用户列表',
           '/user/userList/userInfo':'用户详情',
+          '/user/userList/userEdit':'用户编辑',
            
           '/company':'公司信息',
           '/company/companyList':'公司列表',

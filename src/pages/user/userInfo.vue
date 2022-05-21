@@ -2,12 +2,33 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:33
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-19 16:12:19
+ * @LastEditTime: 2022-05-21 11:07:36
  * @Descripttion: 
 -->
 
 <template>
   <div>
+        <div style="height:40px;textAlign:right;paddingTop:8px">
+      <router-link 
+          :to="{
+              path:'/user/userList/userEdit',
+              query:{
+                  userId:userData.id
+              }
+          }"
+           style="marginRight:10px"
+      >
+          <a-button type="primary">编辑</a-button>
+      </router-link>
+      <router-link 
+          :to="{
+              path:'/user/userList',
+          }"
+           style="marginLeft:10px; marginRight:10px"
+      >
+          <a-button type="primary">返回</a-button>
+      </router-link>
+    </div>
     <a-descriptions title="用户详情" bordered :column='3'>
       <a-descriptions-item label="用户ID" :span="1">
         {{ userData.id }}
@@ -132,7 +153,7 @@ export default {
 <style  lang='less' scoped>
     /deep/.ant-descriptions {
     margin: 10px 20px 0px 20px;
-    padding-top: 20px;
+    padding-top: 0px;
     }
     /deep/.ant-table {
         background-color: white;

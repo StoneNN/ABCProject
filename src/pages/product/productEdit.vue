@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-15 21:47:22
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-20 16:39:05
+ * @LastEditTime: 2022-05-21 17:03:00
  * @Descripttion:  产品信息编辑
 -->
 
@@ -10,19 +10,40 @@
   <div style="paddingTop:20px; paddingBottom:20px;">
     <a-form-model 
       layout="horizontal" 
-      :model="formInline" 
+      :model="productData"
       @submit="handleSubmit" 
       @submit.native.prevent
-      style="width:400px; margin:0 auto"
+      style="width:100%; margin:0 auto"
       v-bind="layout"
     >
+        <a-form-model-item>
+        <div style="width:100%; height:40px;textAlign:right;paddingTop:8px;background:red">
+
+          <a-button
+            type="primary"
+            html-type="submit"
+          >
+            编辑
+          </a-button>
+          <router-link 
+            :to="{
+                path:'/product/productList/productInfo',
+                query:{
+                    productId:productData.id
+                }
+            }"
+          >
+            <a-button type="primary">返回</a-button>
+          </router-link>
+        </div>
+        </a-form-model-item>
       <a-form-model-item label="产品ID">
         <a-input v-model="productData.id" placeholder="产品ID">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
       <a-form-model-item label="产品名称">
-        <a-input v-model="productData.name" placeholder="产品名称">
+        <a-input v-model="productData.name" placeholder="产品名称" @blur="onChange">
           <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
@@ -35,8 +56,8 @@
         <a-input v-model="productData.barcode" placeholder="产品条码">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
-      </a-form-model-item>
-      <a-form-model-item label="产品类别">
+      </a-form-model-item> -->
+      <!-- <a-form-model-item label="产品类别">
         <a-input v-model="productData.categ_id" placeholder="产品类别">
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
@@ -66,7 +87,7 @@
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item>
+      <!-- <a-form-model-item>
         <a-button
           type="primary"
           html-type="submit"
@@ -81,10 +102,10 @@
               }
           }"
            style="marginLeft:10px"
-      >
+        >
           <a-button type="primary">返回</a-button>
       </router-link>
-      </a-form-model-item>
+      </a-form-model-item> -->
     </a-form-model>
   </div>
 </template>
@@ -93,8 +114,8 @@
 <script>
 
 import Vue from "vue";
-import { Form, Divider, Button, FormModel, Descriptions } from "ant-design-vue";
-Vue.use(Form).use(FormModel).use(Divider).use(Button).use(Descriptions);
+import { Divider, Button, FormModel, Descriptions } from "ant-design-vue";
+Vue.use(FormModel).use(Divider).use(Button).use(Descriptions);
 
 import "ant-design-vue/dist/antd.css";
 import odooRpc from '@/odoorpc';
@@ -102,12 +123,10 @@ import odooRpc from '@/odoorpc';
 export default {
   data() {
     return {
-      productData:{},  
+      productData:{
+        // barcode:barcode[0]
+      },  
       value2:{},
-      formInline: {
-        user: '',
-        password: '',
-      },
       layout: {
         labelCol: { span: 5 },
         wrapperCol: { span: 14 },
@@ -145,11 +164,11 @@ export default {
         console.log('---- pid ----',pid);
         const productModel = odooRpc.env.model('product.template');
         
-        const res = await productModel.write(pid,this.value2);
-        console.log('--------product _ edit--------',res);
-        // const res = await productModel.read(pid, ['id','name','display_name','image_1920','barcode','categ_id','company_id','default_code','list_price','standard_price','type','uom_id','uom_name','volume','weight','active']);
-        // this.productData = res[0];
-        // console.log('===== productModel _ info _ edit =====', this.productData);
+        // const res = await productModel.write(pid,this.value2);
+        // console.log('--------product _ edit--------',res);
+        const res = await productModel.read(pid, ['id','name','display_name','image_1920','barcode','categ_id','company_id','default_code','list_price','standard_price','type','uom_id','uom_name','volume','weight','active']);
+        this.productData = res[0];
+        console.log('===== productModel _ info _ edit =====', this.productData);
 
       } catch (err) {
         console.log(err)
@@ -160,25 +179,6 @@ export default {
 </script>
 
 <style  lang='less' scoped>
-    /deep/.ant-descriptions {
-      margin: 0px 10px 0px 10px;
-      padding: 0px;
-    }
-    /deep/.ant-descriptions-item-content {
-      padding: 0px;
-      text-align: left;
-      h4{
-        display: inline-block;
-        font-weight: bolder;
-        // background-color: red;
-      }
-    }
-    /deep/.ant-descriptions-item-label{
-      // background-color: cyan;
-      padding: 0px;
-      font-size: 15px;
-      font-weight: bolder;
-    }
     /deep/.ant-input{
       padding: 0px
     }

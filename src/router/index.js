@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-04-25 17:05:44
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-20 14:51:18
+ * @LastEditTime: 2022-05-21 11:01:45
  * @Description: 
  */
 
@@ -22,9 +22,11 @@ import InvoiceList from '../pages/bills/invoices/InvoiceList.vue';
 import InvoiceDetail from '../pages/bills/invoices/InvoiceDetail.vue';
 import RulesList from '@/pages/bills/rules/rulesList.vue';
 import RulesDetail from '@/pages/bills/rules/rulesDetail.vue';
+
 // import AdminUser from '../pages/user/adminUser.vue';
 import UserList from '@/pages/user/userList';
 import UserInfo from '@/pages/user/userInfo';
+import UserEdit from '@/pages/user/userEdit';
 
 import CompanyList from '@/pages/company/companyList';
 import CompanyInfo from '@/pages/company/companyInfo';
@@ -190,6 +192,12 @@ const invoiceRoutes = [
                         name:'userInfo',
                         meta:{title:'用户信息'},
                         component:UserInfo
+                    },
+                    {
+                        path:'userEdit',
+                        name:'userEdit',
+                        meta:{title:'用户编辑'},
+                        component:UserEdit
                     },
                 ]
             },

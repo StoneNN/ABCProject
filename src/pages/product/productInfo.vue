@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-05-10 10:12:02
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-19 17:04:41
+ * @LastEditTime: 2022-05-21 10:05:51
  * @Description: 产品列表
 -->
 
@@ -53,7 +53,7 @@
         <a-descriptions-item label="产品类别">
           {{ productData.categ_id }}
         </a-descriptions-item>
-        <a-descriptions-item label="产品编码" :span="2">
+        <a-descriptions-item label="产品编码" :span="1">
           {{ productData.default_code }}
         </a-descriptions-item>
         <a-descriptions-item label="售价">
