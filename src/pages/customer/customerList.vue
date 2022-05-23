@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-05-10 10:12:23
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-20 17:02:57
+ * @LastEditTime: 2022-05-23 15:53:09
  * @Description: 客户列表
 -->
 
@@ -10,7 +10,7 @@
     <div id="root">
         <div id="root1">
             <!-- <span>999</span> -->
-            <a-button type="primary">
+            <a-button type="primary" style="marginRight:10px">
             批量删除
             </a-button>
             
@@ -34,6 +34,7 @@
             :data-source="customerData"
             :row-selection="rowSelection"
             :row-key="record => record.id" 
+            :loading="loading"
         >
 
             <a slot="orderCode" slot-scope="text">{{text}}</a>
@@ -130,9 +131,11 @@
                 customerData:[],
                 columns,
                 rowSelection,
+                loading: false,
             }
         },
         mounted() {
+            this.loading = true;
             this.get_customer_model();
         },
         methods:{
@@ -170,6 +173,8 @@
                     order
                 });
                 console.log('---- get_customer_model ----',result);
+                
+                this.loading = false;
                 this.customerData = result;
             }
         }

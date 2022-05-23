@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-20 17:03:48
+ * @LastEditTime: 2022-05-23 15:55:02
  * @Descripttion: 公司列表
 -->
 
@@ -11,7 +11,7 @@
     <div id="root">
         <div id="root1">
             <!-- <span>999</span> -->
-            <a-button type="primary">
+            <a-button type="primary" style="marginRight:10px">
             批量删除
             </a-button>
             
@@ -35,6 +35,7 @@
             :data-source="userData"
             :row-selection="rowSelection"
             :row-key="record => record.id" 
+            :loading="loading"
         >
         
             <a slot="orderCode" slot-scope="text">{{text}}</a>
@@ -131,10 +132,12 @@
                 userData:[],
                 columns,
                 rowSelection,
+                loading: false,
             }
         },
         mounted(){
-          console.log('-----------------------= company =-----------------------');
+            console.log('-----------------------= company =-----------------------');
+            this.loading = true;
             this.get_company_model();
         },
         methods:{
@@ -171,6 +174,8 @@
                     order
                 });
                 console.log('---- get_company_model ----',result);
+                
+                this.loading = false;
                 this.userData = result;
             }
         }

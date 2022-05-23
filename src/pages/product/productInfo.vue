@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-05-10 10:12:02
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-21 10:05:51
+ * @LastEditTime: 2022-05-23 16:00:21
  * @Description: 产品列表
 -->
 
@@ -33,11 +33,11 @@
       </router-link>
     </div>
      
-      
+    <a-spin :spinning="spinning">  
       <a-descriptions title="产品详情" bordered :column='3'>
-        <a-descriptions-item label="产品ID" :span="1">
+        <!-- <a-descriptions-item label="产品ID" :span="1">
           {{ productData.id }}
-        </a-descriptions-item>
+        </a-descriptions-item> -->
         <a-descriptions-item label="产品名称" :span="1">
           {{ productData.name }}
         </a-descriptions-item>
@@ -69,15 +69,17 @@
           {{ productData.weight }}
         </a-descriptions-item>
       </a-descriptions>
+    </a-spin>
+    
   </div>
 </template>
 <script>
 import Vue from "vue";
-import { Table, Descriptions, Divider, Button } from "ant-design-vue";
+import { Table, Descriptions, Spin, Button } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 import odooRpc from '@/odoorpc';
 
-Vue.use(Table).use(Descriptions).use(Divider).use(Button);
+Vue.use(Table).use(Descriptions).use(Spin).use(Button);
 
 
 
@@ -86,10 +88,12 @@ export default {
   data() {
     return {
         productData:[],
+        spinning: false,
     };
   },
   mounted() {
     console.log('------ProductInfoCpnt-- mounted --------');
+    this.spinning = true;
     this.getData();
   },
   methods:{
@@ -102,6 +106,8 @@ export default {
         // const res = await productModel.read(uid, {fields:['id','name']});
 
         const res = await productModel.read(pid, ['id','name','display_name','image_1920','barcode','categ_id','company_id','default_code','list_price','standard_price','type','uom_id','uom_name','volume','weight','active']);
+        
+        this.spinning = false;
         this.productData = res[0];
         console.log('===== productModel _ info =====', this.productData);
       } catch (err) {

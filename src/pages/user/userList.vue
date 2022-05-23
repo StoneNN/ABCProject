@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-22 02:56:10
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-23 15:53:45
  * @Descripttion: userList页面
 -->
 
@@ -10,7 +10,7 @@
 <template>
     <div id="root">
         <div id="root1">
-            <a-button type="primary">
+            <a-button type="primary" style="marginRight:10px">
             批量删除
             </a-button>
             <a-button type="primary">
@@ -32,6 +32,7 @@
             :data-source="userData"
             :row-selection="rowSelection"
             :row-key="record => record.id" 
+            :loading="loading"
         >
         
             <a slot="orderCode" slot-scope="text">{{text}}</a>
@@ -183,11 +184,13 @@
                 userData:[],
                 columns,
                 rowSelection,
+                loading: false,
             }
         },
         mounted(){
             console.log('------ get user info -------');
             // this.user_model_fields();
+            this.loading = true;
             this.get_user_model();
         },
         methods:{
@@ -232,6 +235,7 @@
                     order
                 });
                 console.log('---- get_user_model ----',result);
+                this.loading = false;
                 this.userData = result;
             }
         }

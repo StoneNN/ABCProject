@@ -2,14 +2,14 @@
  * @Author: Nn
  * @Date: 2022-05-10 10:11:43
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-20 16:29:58
+ * @LastEditTime: 2022-05-23 15:51:06
  * @Description: 产品列表
 -->
 
 <template>
     <div id="root">
         <div id="root1">
-            <a-button type="primary">
+            <a-button type="primary" style="marginRight:10px">
             批量删除
             </a-button>
 
@@ -34,6 +34,7 @@
             :data-source="productData"
             :row-selection="rowSelection"
             :row-key="record => record.id" 
+            :loading="loading"
         >
 
             <a slot="orderCode" slot-scope="text">{{text}}</a>
@@ -146,9 +147,11 @@
                 productData:[],
                 columns,
                 rowSelection,
+                loading: false,
             }
         },
         mounted() {
+            this.loading = true;
             this.get_product_model();
         },
         methods: {
@@ -184,7 +187,9 @@
                     order
                 });
                 console.log('---- get productModel ----',result);
+                this.loading = false;
                 this.productData = result;
+                
             },
             onCreateAction(){
                 console.log('--------- 新建产品 --------');
