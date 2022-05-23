@@ -1,13 +1,13 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 00:39:58
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-07 18:05:33
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-22 02:57:00
  * @Descripttion: 
 -->
 
 <template>
-        <h1>超级用户页面</h1>
+        <h1>超级管理员页面</h1>
 </template>
 <script>
 

@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-20 14:38:46
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-22 02:54:00
  * @Descripttion: Default Layout
 -->
 
@@ -48,7 +48,7 @@
             </a-menu-item>
             <a-menu-divider />
             <a-menu-item>
-              <a>用户信息 ></a>
+              <a>管理员信息 ></a>
             </a-menu-item>
             <a-menu-item>
               <a-button  @click="logOutAction()">退出登录</a-button>
@@ -156,8 +156,8 @@
           icon:'home'
         },
         {
-          key: '用户信息',
-          title: '用户信息',
+          key: '管理员信息',
+          title: '管理员信息',
           icon:'user',
           path: '/user',
         },

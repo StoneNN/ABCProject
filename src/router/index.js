@@ -53,13 +53,13 @@ const loginRoutes = [
     {
         path:'/userLogin',
         name:'userLogin',
-        meta:{title:'用户登录'},
+        meta:{title:'管理员登录'},
         component:Login
     },
     {
         path:'/userRegister',
         name:'userRegister',
-        meta:{title:'用户注册'},
+        meta:{title:'管理员注册'},
         component:Register
     }
     // {
@@ -71,7 +71,7 @@ const loginRoutes = [
     //         {
     //             path:'/userLogin',
     //             name:'userLogin',
-    //             meta:{title:'用户登录'},
+    //             meta:{title:'管理员登录'},
     //             component:Login
     //         }
     //     ]
@@ -96,7 +96,7 @@ const invoiceRoutes = [
             // {
             //     path:'/users',
             //     name:'users',
-            //     meta:{title:'用户列表'},
+            //     meta:{title:'管理员列表'},
             //     component:UserList
             // },
 
@@ -172,31 +172,31 @@ const invoiceRoutes = [
             // {
             //     path:'user/adminUser',
             //     name:'adminUser',
-            //     meta:{title:'超级用户'},
+            //     meta:{title:'超级管理员'},
             //     component:AdminUser
             // },
             {
                 path:'user/userList',
                 component:{render(c) { return c('router-view')  }},
-                meta:{title:'用户信息'},
+                meta:{title:'管理员信息'},
                 redirect:'user/userList',
                 children:[
                     {
                         path:'',
                         name:'userList',
-                        meta:{title:'用户列表'},
+                        meta:{title:'管理员列表'},
                         component:UserList
                     },
                     {
                         path:'userInfo',
                         name:'userInfo',
-                        meta:{title:'用户信息'},
+                        meta:{title:'管理员信息'},
                         component:UserInfo
                     },
                     {
                         path:'userEdit',
                         name:'userEdit',
-                        meta:{title:'用户编辑'},
+                        meta:{title:'管理员编辑'},
                         component:UserEdit
                     },
                 ]

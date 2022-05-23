@@ -29,11 +29,11 @@
           <a-button type="primary">返回</a-button>
       </router-link>
     </div>
-    <a-descriptions title="用户详情" bordered :column='3'>
-      <a-descriptions-item label="用户ID" :span="1">
+    <a-descriptions title="管理员详情" bordered :column='3'>
+      <a-descriptions-item label="管理员ID" :span="1">
         {{ userData.id }}
       </a-descriptions-item>
-      <a-descriptions-item label="用户姓名" :span="1">
+      <a-descriptions-item label="管理员姓名" :span="1">
         {{ userData.name }}
       </a-descriptions-item>
       <a-descriptions-item label="职位">

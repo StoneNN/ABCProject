@@ -1,14 +1,14 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-21 10:59:02
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-21 16:43:16
- * @Description: 用户信息编辑
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-22 02:55:32
+ * @Description: 管理员信息编辑
 -->
 
 <template>
   <a-form-model :model="userForm" :label-col="labelCol" :wrapper-col="wrapperCol">
-    <a-form-model-item label="用户姓名">
+    <a-form-model-item label="管理员姓名">
       <a-input v-model="userForm.name" />
     </a-form-model-item>
     

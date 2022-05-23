@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-21 16:39:57
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-22 02:56:10
  * @Descripttion: userList页面
 -->
 
@@ -14,7 +14,7 @@
             批量删除
             </a-button>
             <a-button type="primary">
-            新建用户
+            新建管理员
             </a-button>
             <a-button type="primary">
             重置
@@ -60,7 +60,7 @@
     
     const columns = [
         // {
-        //     title: '用户ID',
+        //     title: '管理员ID',
         //     dataIndex:'id',
         //     key: 'id',
         //     align:'center',

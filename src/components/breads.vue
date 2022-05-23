@@ -51,10 +51,10 @@
           '/financial/invoiceList':'发票列表',
           '/financial/invoiceList/invoiceDetail':'发票详情',
       
-          '/user':'用户信息',
-          '/user/userList':'用户列表',
-          '/user/userList/userInfo':'用户详情',
-          '/user/userList/userEdit':'用户编辑',
+          '/user':'管理员信息',
+          '/user/userList':'管理员列表',
+          '/user/userList/userInfo':'管理员详情',
+          '/user/userList/userEdit':'管理员编辑',
            
           '/company':'公司信息',
           '/company/companyList':'公司列表',
