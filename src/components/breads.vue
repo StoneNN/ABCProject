@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-04-13 11:50:28
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-21 16:50:03
+ * @LastEditTime: 2022-05-24 09:36:46
  * @Description: breadCrumb
 -->
 
@@ -55,14 +55,19 @@
           '/user/userList':'管理员列表',
           '/user/userList/userInfo':'管理员详情',
           '/user/userList/userEdit':'管理员编辑',
+          '/user/userList/userCreate':'管理员新建',
            
           '/company':'公司信息',
           '/company/companyList':'公司列表',
           '/company/companyList/companyInfo':'公司详情',
+          '/company/companyList/companyEdit':'公司编辑',
+          '/company/companyList/companyCreate':'公司新建',
 
           '/customer':'客户信息',
           '/customer/customerList':'客户列表',
           '/customer/customerList/customerInfo':'客户详情',
+          '/customer/customerList/customerEdit':'客户编辑',
+          '/customer/customerList/customerCrate':'客户新建',
 
           '/product':'产品信息',
           '/product/productList':'产品列表',

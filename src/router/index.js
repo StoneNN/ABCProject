@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-04-25 17:05:44
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-21 11:01:45
+ * @LastEditTime: 2022-05-24 09:35:06
  * @Description: 
  */
 
@@ -27,12 +27,17 @@ import RulesDetail from '@/pages/bills/rules/rulesDetail.vue';
 import UserList from '@/pages/user/userList';
 import UserInfo from '@/pages/user/userInfo';
 import UserEdit from '@/pages/user/userEdit';
+import UserCreate from '@/pages/user/userCreate';
 
 import CompanyList from '@/pages/company/companyList';
 import CompanyInfo from '@/pages/company/companyInfo';
+import CompanyEdit from '@/pages/company/companyEdit';
+import CompanyCreate from '@/pages/company/companyCreate';
 
 import CustomerList from '@/pages/customer/customerList';
 import CustomerInfo from '@/pages/customer/customerInfo';
+import CustomerEdit from '@/pages/customer/customerEdit';
+import CustomerCreate from '@/pages/customer/customerCreate';
 
 import ProductList from '@/pages/product/productList';
 import ProductInfo from '@/pages/product/productInfo'
@@ -199,6 +204,12 @@ const invoiceRoutes = [
                         meta:{title:'管理员编辑'},
                         component:UserEdit
                     },
+                    {
+                        path:'userCreate',
+                        name:'userCreate',
+                        meta:{title:'管理员新建'},
+                        component:UserCreate
+                    },
                 ]
             },
             {
@@ -223,6 +234,18 @@ const invoiceRoutes = [
                         meta:{title:'公司信息'},
                         component:CompanyInfo
                     },
+                    {
+                        path:'companyEdit',
+                        name:'companyEdit',
+                        meta:{title:'公司编辑'},
+                        component:CompanyInfo
+                    },
+                    {
+                        path:'companyCreate',
+                        name:'companyCreate',
+                        meta:{title:'公司编辑'},
+                        component:CompanyCreate
+                    },
                 ]
             },
 
@@ -243,10 +266,22 @@ const invoiceRoutes = [
                         component:CustomerList
                     },
                     {
-                        path:'companyInfo',
-                        name:'companyInfo',
+                        path:'customerInfo',
+                        name:'customerInfo',
                         meta:{title:'客户信息'},
                         component:CustomerInfo
+                    },
+                    {
+                        path:'customerEdit',
+                        name:'customerEdit',
+                        meta:{title:'客户编辑'},
+                        component:CustomerEdit
+                    },
+                    {
+                        path:'customerCreate',
+                        name:'customerCreate',
+                        meta:{title:'客户新建'},
+                        component:CustomerCreate
                     },
                 ]
             },
