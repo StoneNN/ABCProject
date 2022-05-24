@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-10 10:12:32
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-24 15:49:40
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-24 23:43:33
  * @Description: 客户信息
 -->
 
@@ -11,9 +11,9 @@
     <div style="height:40px;textAlign:right;paddingTop:8px">
       <router-link 
           :to="{
-              path:'/product/productList/productEdit',
+              path:'/customer/customerList/customerEdit',
               query:{
-                  productId:productData.id
+                  customerId:customerData.id
               }
           }"
            style="marginRight:10px"
@@ -22,7 +22,7 @@
       </router-link>
       <router-link 
           :to="{
-              path:'/product/productList',
+              path:'/customer/customerList',
           }"
            style="marginLeft:10px; marginRight:10px"
       >
@@ -31,45 +31,58 @@
     </div>
      
     <a-spin :spinning="spinning">  
-      <a-descriptions title="产品详情" bordered :column='3'>
-        <!-- <a-descriptions-item label="产品ID" :span="1">
-          {{ productData.id }}
+      <a-descriptions title="客户详情" bordered :column='3'>
+        <!-- <a-descriptions-item label="客户ID" :span="1">
+          {{ customerData.id }}
         </a-descriptions-item> -->
-        <a-descriptions-item label="产品名称" :span="1">
-          {{ productData.name }}
+        <a-descriptions-item label="客户名称" :span="1">
+          {{ customerData.name }}
         </a-descriptions-item>
-        <a-descriptions-item label="产品全名">
-          {{ productData.display_name }}
+        <a-descriptions-item label="客户全名">
+          {{ customerData.display_name }}
         </a-descriptions-item>
-        <!-- <a-descriptions-item label="产品图片">
-          {{ productData.image_1920 }}
+        <!-- <a-descriptions-item label="客户图片">
+          {{ customerData.image_1920 }}
         </a-descriptions-item> -->
-        <a-descriptions-item label="产品条码">
-          {{ productData.barcode }}
+        <a-descriptions-item label="职务">
+          {{ customerData.function }}
         </a-descriptions-item>
-        <a-descriptions-item label="产品类别">
-          {{ productData.categ_id }}
+        <a-descriptions-item label="客户条码">
+          {{ customerData.barcode }}
         </a-descriptions-item>
-        <a-descriptions-item label="产品编码" :span="1">
-          {{ productData.default_code }}
+        <a-descriptions-item label="客户类别">
+          {{ customerData.company_type }}
         </a-descriptions-item>
-        <a-descriptions-item label="售价">
-          {{ productData.list_price }}
+        <a-descriptions-item label="国家" :span="1">
+          {{ customerData.country_id }}
         </a-descriptions-item>
-        <a-descriptions-item label="成本价" :span="2">
-          {{ productData.standard_price }}
+        <a-descriptions-item label="省、直辖市">
+          {{ customerData.state_id }}
         </a-descriptions-item>
-        <a-descriptions-item label="体积" :span="1">
-          {{ productData.volume }}
+        <a-descriptions-item label="城市" :span="2">
+          {{ customerData.city }}
         </a-descriptions-item>
-        <a-descriptions-item label="重量" :span="2">
-          {{ productData.weight }}
+        <a-descriptions-item label="街道" :span="1">
+          {{ customerData.street + customerData.street2}}
+        </a-descriptions-item>
+        <a-descriptions-item label="固定电话" :span="1">
+          {{ customerData.phone }}
+        </a-descriptions-item>
+        <a-descriptions-item label="移动电话" :span="1">
+          {{ customerData.mobile }}
+        </a-descriptions-item>
+        <a-descriptions-item label="邮箱" :span="1">
+          {{ customerData.email }}
+        </a-descriptions-item>
+        <a-descriptions-item label="标签" :span="1">
+          {{ customerData.category_id }}
         </a-descriptions-item>
       </a-descriptions>
     </a-spin>
     
   </div>
 </template>
+
 <script>
 import Vue from "vue";
 import { Table, Descriptions, Spin, Button } from "ant-design-vue";
@@ -84,35 +97,35 @@ export default {
   name: "CustomerInfoCpnt",
   data() {
     return {
-        productData:[],
+        customerData:[],
         spinning: false,
     };
   },
   mounted() {
-    console.log('------ProductInfoCpnt-- mounted --------');
+    console.log('------CustomerInfoCpnt-- mounted --------');
     this.spinning = true;
     this.getData();
   },
   methods:{
     async getData () {
       try {
-        const pid = parseInt(this.$route.query.productId);
-        console.log('---- uid ----',pid);
-        const productModel = odooRpc.env.model('product.template');
+        const cid = parseInt(this.$route.query.customerId);
+        console.log('---- uid ----',cid);
+        const customerModel = odooRpc.env.model('res.partner');
         
-        // const res = await productModel.read(uid, {fields:['id','name']});
+        // const res = await customerModel.read(uid, {fields:['id','name']});
 
-        const res = await productModel.read(pid, ['id','name','display_name','image_1920','barcode','categ_id','company_id','default_code','list_price','standard_price','type','uom_id','uom_name','volume','weight','active']);
+        const res = await customerModel.read(cid, ['id','name','display_name','function','phone','mobile','email','barcode','vat','bank_ids','type','company_id','company_type','zip','website','avatar_128','category_id','child_ids','parent_id','city','country_id','customer_rank','supplier_rank','industry_id','invoice_ids','ref','state_id','street','street2','team_id','user_id','title','active','currency_id']);
         
         this.spinning = false;
-        this.productData = res[0];
-        console.log('===== productModel _ info =====', this.productData);
+        this.customerData = res[0];
+        console.log('===== customerModel _ info =====', this.customerData);
       } catch (err) {
         console.log(err)
       }
     },
     editeInfo(){
-        console.log('==== 编辑产品信息 ====');
+        console.log('==== 编辑客户信息 ====');
     }
 
   }

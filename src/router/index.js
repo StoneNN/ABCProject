@@ -1,8 +1,8 @@
 /*
  * @Author: Nn
  * @Date: 2022-04-25 17:05:44
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-24 09:35:06
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-25 00:17:35
  * @Description: 
  */
 
@@ -238,7 +238,7 @@ const invoiceRoutes = [
                         path:'companyEdit',
                         name:'companyEdit',
                         meta:{title:'公司编辑'},
-                        component:CompanyInfo
+                        component:CompanyEdit
                     },
                     {
                         path:'companyCreate',

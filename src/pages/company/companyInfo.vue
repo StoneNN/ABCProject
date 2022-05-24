@@ -1,39 +1,60 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:33
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-19 16:10:32
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-25 00:32:12
  * @Descripttion: 
 -->
 
 <template>
   <div>
+    <div style="height:40px;textAlign:right;paddingTop:8px">
+      <router-link 
+          :to="{
+              path:'/company/companyList/companyEdit',
+              query:{
+                  companyId:companyData.id
+              }
+          }"
+           style="marginRight:10px"
+      >
+          <a-button type="primary">编辑</a-button>
+      </router-link>
+      <router-link 
+          :to="{
+              path:'/company/companyList',
+          }"
+           style="marginLeft:10px; marginRight:10px"
+      >
+          <a-button type="primary">返回</a-button>
+      </router-link>
+    </div>
     <a-descriptions title="公司详情" bordered :column='3'>
       <a-descriptions-item label="公司ID" :span="1">
         {{ companyData.id }}
       </a-descriptions-item>
-      <a-descriptions-item label="公司名称" :span="2">
+      <a-descriptions-item label="公司名称" :span="1">
         {{ companyData.name }}
       </a-descriptions-item>
-      <a-descriptions-item label="公司编号" :span="3">
+      <a-descriptions-item label="公司编号" :span="1">
         {{ companyData.vat }}
       </a-descriptions-item>
-      <a-descriptions-item label="电话" :span="3">
+      <a-descriptions-item label="电话" :span="1">
         {{ companyData.mobile }}
       </a-descriptions-item>
-      <a-descriptions-item label="邮箱" :span="3">
+      <a-descriptions-item label="邮箱" :span="1">
         {{ companyData.email }}
       </a-descriptions-item>
-      <a-descriptions-item label="全名" :span="3">
+      <a-descriptions-item label="全名" :span="1">
         {{ companyData.display_name }}
       </a-descriptions-item>
-      <a-descriptions-item label="logo" :span="3">
+      <!-- <a-descriptions-item label="logo" :span="1">
         {{ companyData.logo }}
+      </a-descriptions-item> -->
+      <a-descriptions-item label="员工编号" :span="1">
+        {{ companyData.user_ids }}
       </a-descriptions-item>
-      <a-descriptions-item label="员工编号" :span="3">
-        {{ companyData.unitPrice }}
-      </a-descriptions-item>
-      <a-descriptions-item label="company_registry" :span="3">
+      <a-descriptions-item label="company_registry" :span="1">
         {{ companyData.company_registry }}
       </a-descriptions-item>
       <!-- <a-descriptions-item label="销售方" :span="3">
@@ -100,8 +121,7 @@ export default {
 </script>
 <style  lang='less' scoped>
     /deep/.ant-descriptions {
-      margin: 10px 20px 0px 20px;
-      padding-top: 20px;
+      margin: 0px 20px 0px 20px;
     }
     /deep/.ant-table {
       background-color: white;

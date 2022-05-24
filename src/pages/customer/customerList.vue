@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-10 10:12:23
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-23 15:53:09
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-24 22:51:49
  * @Description: 客户列表
 -->
 
@@ -58,31 +58,28 @@
 </template>
 
 <script>
-    import Vue from 'vue'
     import odooRpc from '@/odoorpc';
     import odooApi from '@/odooapi';
 
     const columns = [
         {
-            title: '公司ID',
-            dataIndex:'id',
-            key: 'id',
+            title: '客户名称',
+            dataIndex:'name',
+            key: 'name',
             align:'center',
-            slots: { title: 'userId' },
-            scopedSlots: { customRender: 'userId' },
-            width:'75px'
+            width:'100px'
         },
          {
-            title: '公司编号',
-            dataIndex:'vat',
-            key: 'vat',
+            title: '客户全名',
+            dataIndex:'display_name',
+            key: 'display_name',
             align:'center',
             width:'15%'
         },
         {
-            title: '公司名称',
-            dataIndex:'name',
-            key: 'name',
+            title: '客户类型',
+            dataIndex:'company_type',
+            key: 'company_type',
             align:'center',
             // width:'20%'
         },
@@ -93,15 +90,15 @@
             align:'center',
         },
         {
-            title: '邮箱',
-            dataIndex: 'email',
-            key: 'email',
+            title: '所属行业',
+            dataIndex: 'industry_id',
+            key: 'industry_id',
             align:'center',
         },
         {
-            title: '全名',
-            dataIndex:'display_name',
-            key: 'display_name',
+            title: '条形码',
+            dataIndex:'barcode',
+            key: 'barcode',
             align:'center',
         },
         {
@@ -160,8 +157,7 @@
                 // const fields = [];
 
                 const customerModel = odooRpc.env.model('res.partner');
-                // const fields = ['id','name','mobile','email','display_name','vat','logo','company_registry','user_ids'];
-                const fields = [];
+                const fields = ['id','name','display_name','function','phone','mobile','email','barcode','vat','bank_ids','type','company_id','company_type','zip','website','avatar_128','category_id','child_ids','parent_id','city','country_id','customer_rank','supplier_rank','industry_id','invoice_ids','ref','state_id','street','street2','team_id','user_id','title','active','currency_id'];
                 const limit = 8;
                 const offset = 0;
                 const order = 'display_name';
