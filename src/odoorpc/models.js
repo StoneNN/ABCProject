@@ -61,7 +61,7 @@ class MetaModel {
 MetaModel._env = undefined
 MetaModel._model = undefined
 
-export class Model extends MetaModel {
+class BaseModel extends MetaModel {
   constructor(payload = {}) {
     super(payload)
   }
@@ -112,12 +112,44 @@ export class Model extends MetaModel {
 
     return this.execute_kw('web_read_group', [], kwargs)
   }
+
   static async web_search_read(kwargs = {}) {
     return this.execute_kw('web_search_read', [], kwargs)
   }
 
+  static _format_dict(one) {
+    const fmt = (fld, val) => {
+      const meta = this._fields[fld] || {}
+      if (meta.type === 'boolean') {
+        return val
+      } else if (meta.type === 'integer') {
+        return val || 0
+      } else if (meta.type === 'float') {
+        return val || 0.0
+      } else if (meta.type === 'monetary') {
+        return val || 0.0
+      } else if (meta.type === 'integer') {
+        return val || 0
+      } else {
+        return val || null
+      }
+    }
+
+    return Object.keys(one).reduce((acc, fld) => {
+      acc[fld] = fmt(fld, one[fld])
+      return acc
+    }, {})
+  }
+
+  static _format_result(result) {
+    return result.map(one => {
+      return this._format_dict(one)
+    })
+  }
+
   static async search_read(kwargs = {}) {
-    return this.execute_kw('search_read', [], kwargs)
+    const res = await this.execute_kw('search_read', [], kwargs)
+    return this._format_result(res)
   }
 
   static async read(ids, kwargs = {}) {
@@ -129,8 +161,8 @@ export class Model extends MetaModel {
     }
 
     const [args, kwargs2] = get_args_kwargs()
-
-    return this.execute_kw(method, args, kwargs2)
+    const res = await this.execute_kw(method, args, kwargs2)
+    return this._format_result(res)
   }
 
   static async copy(rid) {
@@ -176,7 +208,10 @@ export class Model extends MetaModel {
   }
 
   static async onchange(ids, values, field_name, field_onchange) {
-    return this.execute('onchange', ids, values, field_name, field_onchange)
+    const args = [ids, values, field_name, field_onchange]
+    const res = await this.execute('onchange', ...args)
+    const { value } = res
+    return { ...res, value: this._format_dict(value) }
   }
 
   // static async onchange(ids, values, field_name, field_onchange) {
@@ -261,4 +296,262 @@ export class Model extends MetaModel {
 
   //     return onchange2
   //   }
+}
+
+function sleep(millisecond) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, millisecond)
+  })
+}
+
+function _onchange_callid() {
+  return Math.floor(Math.random() * 1000000000 + 1)
+}
+
+const cp = item => JSON.parse(JSON.stringify(item))
+
+// const print_date = () => {
+//   const date = new Date()
+//   console.log(
+//     date.getHours(),
+//     date.getMinutes(),
+//     date.getSeconds(),
+//     date.getMilliseconds()
+//   )
+// }
+
+class EditModel {
+  constructor(payload = {}) {
+    const { Model: OdooModel, res_id, record = {}, values = {} } = payload
+    this.Model = OdooModel
+    this.res_id = res_id
+    this.record = { ...record }
+    this.values = { ...values }
+
+    this.queue = []
+  }
+
+  async _wait(callid) {
+    const to_wait = () => {
+      const first = this.queue[0]
+      return first[0] !== callid
+    }
+
+    let iswait = to_wait()
+    let count = 10
+    //   console.log('wait1:', cp(this.queue), count, iswait)
+
+    while (count > 0 && iswait) {
+      await sleep(100)
+      count = count - 1
+      iswait = to_wait()
+      // console.log('wait:', cp(this.queue), count, iswait)
+    }
+  }
+
+  async call_queue(item) {
+    // console.log('queue 1', item, cp(this.queue))
+    //   print_date()
+
+    const callid = _onchange_callid()
+    this.queue.push([callid, ...item])
+
+    //   console.log('queue 2', item, cp(this.queue))
+    //   print_date()
+
+    await this._wait(callid)
+    const [method, ...args] = item
+    const res = await this[method](...args)
+    await sleep(600)
+    this.queue.shift()
+    return res
+    //   console.log('queue 9', item, cp(this.queue))
+    //   print_date()
+  }
+
+  async onchange({ fname, value, kwargs = {}, callback }) {
+    this.call_queue(['handleOnchange', { fname, value, kwargs, callback }])
+  }
+
+  async commit({ callback }) {
+    this.call_queue(['handleOnCommit', { callback }])
+  }
+
+  async handleOnCommit({ callback }) {
+    const record = this.record
+    const values = this.values
+    const res_id = this.res_id
+    const id2 = await this.Model.web_commit({ res_id, record, values })
+    callback(id2)
+  }
+
+  async handleOnchange({ fname, value, kwargs = {}, callback }) {
+    const result = await this.Model.web_onchange({
+      ids: this.res_id ? [this.res_id] : [],
+      record: this.record,
+      values: { ...this.values, [fname]: value },
+      fname,
+      kwargs
+    })
+
+    const { values = {} } = result
+    this.values = { ...values }
+    if (callback) {
+      callback(result)
+    }
+
+    return result
+  }
+}
+
+BaseModel._EditModel = EditModel
+
+export class Model extends BaseModel {
+  constructor(payload = {}) {
+    super(payload)
+  }
+
+  static _commit_get_readonly(meta, state) {
+    // 仅仅 在 commit 时, 组织 values, 需要
+    // TBD, 测试  销售订单 等 有 state的模型
+    // console.log('vvwr 1', meta, record)
+
+    if (meta.states === undefined) return meta.readonly
+
+    if (state && meta.states && meta.states[state]) {
+      const readonly3 = meta.states[state].reduce((acc, cur) => {
+        acc[cur[0]] = cur[1]
+        return acc
+      }, {})
+
+      if (readonly3.readonly !== undefined) return readonly3.readonly
+    }
+
+    return meta.readonly
+  }
+
+  static _get_values_for_write({ state, values }) {
+    const all_keys = Object.keys({ ...values })
+
+    return all_keys.reduce((acc, fld) => {
+      const meta = this._fields[fld] || {}
+      const readonly = this._commit_get_readonly(meta, state)
+
+      if (!readonly) {
+        const val = values[fld]
+        const val2 = val && meta.type === 'many2one' ? val[0] : val
+        acc[fld] = val2
+      }
+
+      return acc
+    }, {})
+  }
+
+  static async web_commit(payload) {
+    const { res_id, record = {}, values = {} } = payload
+    //
+    if (!values) return
+    if (!Object.keys(values).length) return
+
+    const state_value = 'state' in values ? values.state : record.state
+
+    const values2 = this._get_values_for_write({ state: state_value, values })
+
+    if (res_id) {
+      await this.write(res_id, values2)
+      return res_id
+    } else {
+      return this.create(values2)
+    }
+  }
+
+  static _get_values_for_onchange({ record, values }) {
+    const all_keys = Object.keys({ ...record, ...values })
+    return all_keys.reduce((acc, fld) => {
+      const meta = this._fields[fld] || {}
+      if (meta.type === 'many2many') {
+        const val =
+          fld in values ? values[fld] : [[6, false, record[fld] || []]]
+        acc[fld] = val
+      } else if (meta.type === 'one2many') {
+        const val =
+          fld in values
+            ? values[fld]
+            : (record[fld] || []).map(item => [4, item, false])
+
+        acc[fld] = val
+      } else {
+        const val = fld in values ? values[fld] : record[fld]
+        const val2 = val && meta.type === 'many2one' ? val[0] : val
+        acc[fld] = val2
+      }
+
+      return acc
+    }, {})
+  }
+
+  static async web_onchange_new(payload = {}) {
+    const { values = {} } = payload
+
+    const field_onchange = Object.keys(this._fields).reduce((acc, fld) => {
+      acc[fld] = '1'
+      return acc
+    }, {})
+
+    const result = await this.onchange([], values, [], field_onchange)
+
+    const { value: value_ret, ...res } = result
+    const values_ret = { ...values, ...value_ret }
+    return { ...res, values: values_ret }
+  }
+
+  static async web_onchange(payload) {
+    const { ids = [], record = {}, values = {}, fname, kwargs = {} } = payload
+
+    // 页面编辑时 触发的
+    // 参数:
+    // ids: 待编辑的记录 id
+    // record: 编辑前的所有字段的数据
+    // values: 所有编辑过的字段的数据
+    // fname: 正在编辑的字段
+    // kwargs: 额外的参数 , 待处理
+
+    const field_onchange = Object.keys(this._fields).reduce((acc, fld) => {
+      acc[fld] = '1'
+      return acc
+    }, {})
+
+    // values 中 可能有 id,  需要删除
+    const vals_onchg = this._get_values_for_onchange({ record, values })
+
+    const result = await this.onchange(ids, vals_onchg, fname, field_onchange)
+
+    const { value: value_ret, ...res } = result
+    // console.log(record, values, value_ret, fname)
+
+    // after onchange
+    // 1. _onchange_domain
+    // {domain} = res
+    // 2. set_value_by_onchange
+    const values_ret = { ...values, ...value_ret }
+
+    // relation 字段, onchange 时. 需要  for_write
+    // if (kwargs.for_write !== undefined) {
+    //   values_ret[fname] = kwargs.for_write
+    // }
+    //
+
+    // 3. _after_onchange_async
+    // m2m 需要 更新数据
+
+    // done:
+    return { record, ...res, values: values_ret }
+  }
+
+  static init_edit_model({ res_id, record = {}, values = {} }) {
+    //
+    return new this._EditModel({ Model: this, res_id, record, values })
+  }
 }

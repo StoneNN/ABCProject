@@ -21,7 +21,7 @@ class Webclient extends JsonRequest {
   //     'b9d683172a28adedb5d38d5b55c2c3d78f01fa8e77f1d805496724bf2abff73a'
 
   //   const url2 = `${url}/${token}`
-  //   return await this.json_get(url2, {})
+  //   return await this._odoo.json_get(url2, {})
   // }
 }
 
@@ -36,6 +36,7 @@ class Database extends JsonRequest {
   }
 
   static async create(master_pwd, name, lang, password, kwargs = {}) {
+    // /web/database/create'
     const { demo = false, login, country_code = false, phone } = kwargs
     const url = '/jsonrpc'
     return await this.json_call(url, {
@@ -46,6 +47,7 @@ class Database extends JsonRequest {
   }
 
   static async drop(master_pwd, name) {
+    // /web/database/drop
     const url = '/jsonrpc'
     return await this.json_call(url, {
       service: 'db',
@@ -320,34 +322,6 @@ async function file2Base64(file) {
   return data
 }
 
-class Binary2 extends JsonRequest {
-  constructor(payload) {
-    super(payload)
-  }
-
-  static async upload_attachment_one(payload) {
-    const { file } = payload
-    const datas = await file2Base64(file)
-    const vals = { name: file.name, datas }
-    const context = Session.user_context
-    const attach_id = await Dataset.call_kw({
-      model: 'ir.attachment',
-      method: 'create',
-      args: [vals],
-      kwargs: { context }
-    })
-
-    const attach = await Dataset.call_kw({
-      model: 'ir.attachment',
-      method: 'read',
-      args: [attach_id, ['name', 'mimetype']],
-      kwargs: { context }
-    })
-    // console.log(attach)
-    return attach[0]
-  }
-}
-
 class Binary extends FileRequest {
   constructor(payload) {
     super(payload)
@@ -482,10 +456,6 @@ class Report extends FileRequest {
 class Home extends FileRequest {
   constructor(payload) {
     super(payload)
-  }
-
-  static get session_info() {
-    return Session.session_info
   }
 
   static get is_user() {
@@ -631,7 +601,6 @@ class Home extends FileRequest {
   static async _get_user_info() {
     // website/controllers/main.py/Website._login_redirect
     const is_user = await this._check_is_group_user()
-
     if (is_user) {
       const menus = await this._menus_get()
       // this._qweb_xml = await this._get_qweb()
@@ -639,7 +608,6 @@ class Home extends FileRequest {
       this._login_info = { is_user, menus }
       return { is_user, menus }
     } else {
-      // portal/controllers/portal.py/CustomerPortal.home
       this._login_info = { is_user }
       return { is_user }
     }
@@ -728,8 +696,6 @@ web.database = Database
 web.session = Session
 web.dataset = Dataset
 web.binary = Binary
-web.binary2 = Binary2
-
 web.action = Action
 web.export = Export
 

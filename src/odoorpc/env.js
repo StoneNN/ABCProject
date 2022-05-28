@@ -97,10 +97,30 @@ export class Environment {
     return res2
   }
 
-  model(model, payload = {}) {
+  _model_sync(model, payload = {}) {
     const { fields } = payload
     const Model = this._create_model_class({ model, fields })
     return Model
+  }
+
+  async _model_async(model, payload = {}) {
+    const { fields = [] } = payload
+    const Model = this._model_sync(model)
+    const fields_info = await Model.fields_get(fields)
+    Model._updata_fields(fields_info)
+    return Model
+  }
+
+  model(model, payload = {}) {
+    const { fields } = payload
+    if (!fields) {
+      return this._model_sync(model)
+    } else if (Array.isArray(fields)) {
+      return this._model_async(model, payload)
+    } else {
+      // fields is object
+      return this._model_sync(model, payload)
+    }
   }
 
   // model(model, payload = {}) {
