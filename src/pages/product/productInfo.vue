@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-10 10:12:02
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-23 16:00:21
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-29 16:37:20
  * @Description: 产品列表
 -->
 
@@ -44,6 +44,10 @@
         <a-descriptions-item label="产品全名">
           {{ productData.display_name }}
         </a-descriptions-item>
+        <a-descriptions-item label="内部类型">
+          <!-- {{ productData.detailed_type }} -->
+          {{ format_selection('detailed_type') }}
+        </a-descriptions-item>
         <!-- <a-descriptions-item label="产品图片">
           {{ productData.image_1920 }}
         </a-descriptions-item> -->
@@ -51,7 +55,7 @@
           {{ productData.barcode }}
         </a-descriptions-item>
         <a-descriptions-item label="产品类别">
-          {{ productData.categ_id }}
+          {{ productData.categ_id ? productData.categ_id[1]:''}}
         </a-descriptions-item>
         <a-descriptions-item label="产品编码" :span="1">
           {{ productData.default_code }}
@@ -88,6 +92,7 @@ export default {
   data() {
     return {
         productData:[],
+        fields_info: {},
         spinning: false,
     };
   },
@@ -100,12 +105,15 @@ export default {
     async getData () {
       try {
         const pid = parseInt(this.$route.query.productId);
-        console.log('---- uid ----',pid);
-        const productModel = odooRpc.env.model('product.template');
+        console.log('---- pid ----',pid);
         
-        // const res = await productModel.read(uid, {fields:['id','name']});
+        const fields = ['id','name','display_name','image_1920','barcode','categ_id','company_id','default_code','list_price','standard_price','type','uom_id','uom_name','volume','weight','active','detailed_type'];
+        
+        const productModel = await odooRpc.env.model('product.template',{fields});
+        this.fields_info = productModel._fields;
+        
 
-        const res = await productModel.read(pid, ['id','name','display_name','image_1920','barcode','categ_id','company_id','default_code','list_price','standard_price','type','uom_id','uom_name','volume','weight','active']);
+        const res = await productModel.read(pid, {fields});
         
         this.spinning = false;
         this.productData = res[0];
@@ -113,6 +121,20 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    format_selection(field) {
+      const value = this.productData[field]
+      const meta = this.fields_info[field] || {}
+      if (meta.type !== 'selection') {
+        return value
+      }
+
+      const get_label = v => {
+        const elm = meta.selection.find(item => item[0] === v)
+        return elm ? elm[1] : ''
+      }
+
+      return value ? get_label(value) : ''
     },
     editeInfo(){
         console.log('==== 编辑产品信息 ====');

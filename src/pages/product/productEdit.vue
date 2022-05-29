@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-15 21:47:22
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-28 17:20:05
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-05-29 16:46:59
  * @Descripttion:  产品信息编辑
 -->
 
@@ -26,6 +26,7 @@
           >
             提交
           </a-button>
+          <!-- 返回 -->
           <router-link 
             :to="{
                 path:'/product/productList/productInfo',
@@ -50,43 +51,50 @@
           <a-icon slot="prefix" type="tag" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <!-- <a-form-model-item label="产品全名">
-        <a-input v-model="productData.display_name" placeholder="产品全名" disabled>
-          <a-icon slot="prefix" type="tags" style="color:rgba(0,0,0,.25)" />
-        </a-input>
-      </a-form-model-item> -->
+      <a-form-model-item label="内部类型">
+       
+        <a-select
+          v-model="productData.detailed_type"
+          style="width: 120px"
+          @change="val => handleChange('detailed_type', val)"
+        >
+          <a-select-option v-for="op in selection_options('detailed_type')" :key="op[0]" :value="op[0]">
+            {{ op[1] }}
+          </a-select-option>
+        </a-select>
+      </a-form-model-item>
       <a-form-model-item label="产品条码">
-        <a-input v-model="productData.barcode" placeholder="产品条码" @blur="(e)=>handelChange('barcode',e)">
+        <a-input v-model="productData.barcode" placeholder="产品条码" @blur="(e)=>handelChange('barcode',e.target.value)">
           <a-icon slot="prefix" type="barcode" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <!-- <a-form-model-item label="产品类别">
-        <a-input v-model="productData.categ_id" placeholder="产品类别" @blur="(e)=>handelChange('categ_id',e)">
+      <a-form-model-item label="产品类别">
+        <a-input v-model="productData.categ_id" placeholder="产品类别" @blur="(e)=>handelChange('categ_id',e.target.value)">
           <a-icon slot="prefix" type="book" style="color:rgba(0,0,0,.25)" />
         </a-input>
-      </a-form-model-item> -->
+      </a-form-model-item>
       <a-form-model-item label="产品编码">
-        <a-input v-model="productData.default_code" placeholder="产品编码" @blur="(e)=>handelChange('default_code',e)">
+        <a-input v-model="productData.default_code" placeholder="产品编码" @blur="(e)=>handelChange('default_code',e.target.value)">
           <a-icon slot="prefix" type="profile" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
       <a-form-model-item label="产品售价">
-        <a-input v-model="productData.list_price" placeholder="产品售价" @blur="(e)=>handelChange('list_price',e)">
+        <a-input v-model="productData.list_price" placeholder="产品售价" @blur="(e)=>handelChange('list_price',e.target.value)">
           <a-icon slot="prefix" type="red-envelope" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
       <a-form-model-item label="产品成本价">
-        <a-input v-model="productData.standard_price" placeholder="产品成本价" @blur="(e)=>handelChange('standard_price',e)">
+        <a-input v-model="productData.standard_price" placeholder="产品成本价" @blur="(e)=>handelChange('standard_price',e.target.value)">
           <a-icon slot="prefix" type="money-collect" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
       <a-form-model-item label="产品体积">
-        <a-input v-model="productData.volume" placeholder="产品体积" @blur="(e)=>handelChange('volume',e)">
+        <a-input v-model="productData.volume" placeholder="产品体积" @blur="(e)=>handelChange('volume',e.target.value)">
           <a-icon slot="prefix" type="fullscreen" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
       <a-form-model-item label="产品重量">
-        <a-input v-model="productData.weight" placeholder="产品重量" @blur="(e)=>handelChange('weight',e)">
+        <a-input v-model="productData.weight" placeholder="产品重量" @blur="(e)=>handelChange('weight',e.target.value)">
           <a-icon slot="prefix" type="file-word" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
@@ -98,19 +106,19 @@
 <script>
 
 import Vue from "vue";
-import { Spin, Button, FormModel } from "ant-design-vue";
-import OInput from '@/components/OInput/OInput.vue';
-Vue.use(FormModel).use(Spin).use(Button);
+import { Spin, Button, FormModel, Select } from "ant-design-vue";
+// import OInput from '@/components/OInput/OInput.vue';
+Vue.use(FormModel).use(Spin).use(Button).use(Select);
 
 import "ant-design-vue/dist/antd.css";
 import odooRpc from '@/odoorpc';
 
-const fields = ['id','name','display_name','barcode','categ_id','default_code','list_price','standard_price','volume','weight']
+const fields = ['id','name','display_name','barcode','categ_id','default_code','detailed_type','list_price','standard_price','volume','weight']
 export default {
 
   name:"productEditCpnt",
   components: {
-    OInput,
+    // OInput,
   },
   data() {
     return {
@@ -179,6 +187,14 @@ export default {
         })
       }
     },
+    selection_options(field) {
+      const meta = this.fields_info[field] || {}
+      if (meta.type !== 'selection') {
+        return []
+      }
+
+      return meta.selection
+    },
     onclickSubmit() {
       console.log('onclickSubmit')
 
@@ -188,13 +204,13 @@ export default {
             console.log('onclickSubmit  cb', result)
             // goto 详情页面
             this.btnLoading = false;
-            // this.$router.push(
-            //   {
-            //     path: '/product/productList/productInfo', 
-            //     query: {
-            //       productId: this.productData.id
-            //     }
-            // })
+            this.$router.push(
+              {
+                path: '/product/productList/productInfo', 
+                query: {
+                  productId: this.productData.id
+                }
+            })
           }
         })
       }
