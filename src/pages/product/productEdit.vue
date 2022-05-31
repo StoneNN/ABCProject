@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-15 21:47:22
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-29 16:46:59
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-05-31 17:13:06
  * @Descripttion:  产品信息编辑
 -->
 
@@ -55,7 +55,7 @@
        
         <a-select
           v-model="productData.detailed_type"
-          style="width: 120px"
+          style="width: 100%"
           @change="val => handleChange('detailed_type', val)"
         >
           <a-select-option v-for="op in selection_options('detailed_type')" :key="op[0]" :value="op[0]">
@@ -68,10 +68,18 @@
           <a-icon slot="prefix" type="barcode" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
-      <a-form-model-item label="产品类别">
-        <a-input v-model="productData.categ_id" placeholder="产品类别" @blur="(e)=>handelChange('categ_id',e.target.value)">
+      <!-- <a-form-model-item label="产品类别"> -->
+        <!-- <a-input v-model="productData.categ_id" placeholder="产品类别" @blur="(e)=>handelChange('categ_id',e.target.value)">
           <a-icon slot="prefix" type="book" style="color:rgba(0,0,0,.25)" />
         </a-input>
+      </a-form-model-item> -->
+      <a-form-model-item label="产品类别">
+        <OMany2one
+          v-model="productData.categ_id"
+          :options="many2one_select_options.categ_id"
+          width="100%"
+          @change="(e) => handelChange('categ_id', e)"
+        />
       </a-form-model-item>
       <a-form-model-item label="产品编码">
         <a-input v-model="productData.default_code" placeholder="产品编码" @blur="(e)=>handelChange('default_code',e.target.value)">
@@ -108,6 +116,7 @@
 import Vue from "vue";
 import { Spin, Button, FormModel, Select } from "ant-design-vue";
 // import OInput from '@/components/OInput/OInput.vue';
+import OMany2one from '@/components/OInput/OMany2one.vue';
 Vue.use(FormModel).use(Spin).use(Button).use(Select);
 
 import "ant-design-vue/dist/antd.css";
@@ -119,6 +128,7 @@ export default {
   name:"productEditCpnt",
   components: {
     // OInput,
+    OMany2one
   },
   data() {
     return {
@@ -128,7 +138,10 @@ export default {
       changeData:{},
       doneData:{},
       edit_model:undefined,
-
+      many2one_select_options: {
+        categ_id: []
+      },
+      
       btnLoading:false,
       spinning: false,
       layout: {
@@ -162,12 +175,29 @@ export default {
           record: {... this.productData},
           values: {...this.doneData}
         });
+        const m2o_options_categ = await this.get_many2one_options('categ_id');
+        console.log(m2o_options_categ);
+        this.many2one_select_options.categ_id = m2o_options_categ;
         console.log('===== productModel _ info _ edit =====', this.productData);
       } catch (err) {
         console.log(err)
       }
     },
-    
+    async get_many2one_options(field) {
+      console.log(this.fields_info)
+
+      const meta = this.fields_info[field] || {}
+      if (meta.type !== 'many2one') {
+        return []
+      }
+
+      const relation = meta.relation
+      const Relation = odooRpc.env.model(relation)
+      const res = await Relation.name_search()
+      // console.log(res)
+
+      return res
+    },
     async handelChange(fname, value) {
       console.log('=== handelChange ===',fname, value)
       // 这里 是父组件的  handelChange
