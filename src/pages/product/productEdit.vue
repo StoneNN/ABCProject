@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-15 21:47:22
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-31 17:13:06
+ * @LastEditTime: 2022-06-02 16:35:10
  * @Descripttion:  产品信息编辑
 -->
 
@@ -254,6 +254,6 @@ export default {
       padding: 0px
     }
     /deep/ .ant-form-item-control{
-      // background:gray
+      background:white
     }
 </style>

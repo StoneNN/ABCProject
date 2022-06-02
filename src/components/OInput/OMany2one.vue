@@ -1,3 +1,10 @@
+<!--
+ * @Author: Nn
+ * @Date: 2022-05-31 17:03:12
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-02 16:45:27
+ * @Description: 
+-->
 <template>
   <!-- <div>
     <div>value: {{ value }}</div>
@@ -21,6 +28,7 @@
     label-in-value
     @change="handleChange"
     :style="compute_style"
+    :placeholder="placeholderSet"
   >
     <a-select-option v-for="op in options" :key="op[0]" :value="op[0]">
       {{ op[1] }}
@@ -34,7 +42,8 @@ export default {
   props: {
     value: { type: Array, default: null },
     options: { type: Array, default: () => [] },
-    width: { type: String, default: undefined }
+    width: { type: String, default: undefined },
+    placeholder: { type: String, default: undefined }
   },
 
   data() {
@@ -48,7 +57,14 @@ export default {
         return undefined
       }
     },
-
+    placeholderSet(){
+      if (this.placeholder) {
+        console.log('===================',this.placeholder);
+        return this.placeholder;
+      } else {
+        return '';
+      }
+    },
     value2: {
       get() {
         return this.value ? { key: this.value[0] } : {}
