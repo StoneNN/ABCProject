@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-04-05 00:39:58
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-22 02:57:00
+ * @LastEditTime: 2022-06-04 09:52:41
  * @Descripttion: 
 -->
 
@@ -12,7 +12,6 @@
 <script>
 
     import odooRpc from '@/odoorpc';
-    import odooApi from '@/odooapi';
 
     export default {
         name:"AdminUserCpnt",
@@ -38,7 +37,7 @@
                 return res;
             },
             async user_model_fields () {
-                const Model = odooApi.env.model('res.users');
+                const Model = odooRpc.env.model('res.users');
                 const allfields = [];
                 const attributes = [];
                 const res = await Model.fields_get(allfields, attributes);

@@ -2,14 +2,14 @@
  * @Author: Nn
  * @Date: 2022-05-10 10:11:43
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-29 16:13:15
+ * @LastEditTime: 2022-06-03 18:21:57
  * @Description: 产品列表
 -->
 
 <template>
     <div id="root">
         <div id="root1">
-            <a-button type="primary" style="marginRight:10px">
+            <a-button type="primary" style="marginRight:10px" @click="deleteAction(selectedRowKeys)">
             批量删除
             </a-button>
 
@@ -17,16 +17,17 @@
             新建产品
             </a-button>
             
-            <a-button type="primary">
+            <a-button type="primary" @click="onResetSearch()">
             重置
             </a-button>
 
             <a-input-search
-                placeholder="请输入订单号码"
+                placeholder="请输入产品名称"
                 enter-button="搜索"
                 size="default"
                 style="width:40%;"
                 @search="onSearch"
+                v-model="serchValue"
             />
         </div>
         <a-table
@@ -54,35 +55,32 @@
         </a-table>
     </div>
 </template>
+
 <script>
 
     import odooRpc from '@/odoorpc';
         
-    const rowSelection = {
-        onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        onSelect: (record, selected, selectedRows) => {
-            console.log(record, selected, selectedRows);
-        },
-        onSelectAll: (selected, selectedRows, changeRows) => {
-            console.log(selected, selectedRows, changeRows);
-        },
-    };
+   
     export default {
         name:"ProductListCpnt",
         data(){
             return{
                 productData:[],
-                rowSelection,
+                selectedRowKeys:[],
                 loading: false,
                 fields_info: {},
+                serchValue:''
             }
         },
         computed: {
             columns() {
             const cols = [
-    
+                {
+                    title:'ID',
+                    dataIndex:'id',
+                    key:'id',
+                    align:'center',
+                },
                 {
                     title:'产品名称',
                     dataIndex:'name',
@@ -179,6 +177,23 @@
                 if (render) col2.customRender = render;
                 return { ...col, ...col2 };
             })
+            },
+            rowSelection () {
+                const {selectedRowKeys} = this;
+                return{
+                    selectedRowKeys,
+                    onChange: (selectedRowKeys, selectedRows) => {
+                        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+                        this.selectedRowKeys = selectedRowKeys;
+                    },
+                    onSelect: (record, selected, selectedRows) => {
+                        console.log(record, selected, selectedRows);
+                    },
+                    onSelectAll: (selected, selectedRows, changeRows) => {
+                        console.log(selected, selectedRows, changeRows);
+                    },
+                }
+                
             }
         },
         mounted() {
@@ -189,24 +204,38 @@
             deleteAlert(id){
                 if (confirm("确定删除吗？")) {
 					console.log('-- 确定删除吗？ --',id);
-					this.deleteOne(id);
+					this.deleteAction(id);
 				}
             },
-            deleteOne(v){
-                console.log('-- 删除 --',v);
+            async deleteAction(pid){
+                console.log('-- 删除 --',pid);
+                const productModel = odooRpc.env.model('product.template');
+                const res = await productModel.unlink(pid);
+                if (res) {
+                    this.get_product_model();
+                    this.clearSelectRowKeys();
+                }
             },
             onSearch(value) {
-                console.log(value);
+                console.log('-------- 产品名称搜索 ---------',value);
+                this.get_product_model(value);
             },
-            async get_product_model () {
+            onResetSearch(){
+                this.get_product_model();
+                this.serchValue = "";
+            },
+            clearSelectRowKeys(){
+                this.selectedRowKeys = [];
+            },
+            async get_product_model (pName) {
 
-                const domain = [];
+                const domain = [ [ 'name', 'like',  pName ] ]
                 const fields = [];
 
                 const productModel = await odooRpc.env.model('product.template',{fields});
                 this.fields_info = productModel._fields;
 
-                const limit = 8;
+                const limit = 80;
                 const offset = 0;
                 const order = 'display_name';
                 const result = await productModel.search_read({

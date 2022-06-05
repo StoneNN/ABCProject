@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-03 21:26:03
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-03 21:52:13
+ * @LastEditTime: 2022-06-04 10:01:58
  * @Descripttion: 
 -->
 <template>
@@ -35,9 +35,7 @@
 import axios from 'axios';
 
 import { test_rpc } from '@/odooRpc-test/test-rpc';
-// import { test_api } from '@/odooapi_test/test_api'
 
-// import { test_api_addons } from '@/api_addons/test_api_addons'
 
 export default {
   name: 'TestRpc',

@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-23 15:55:02
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-06-04 09:50:43
  * @Descripttion: 公司列表
 -->
 
@@ -61,7 +61,6 @@
 <script>
 
     import odooRpc from '@/odoorpc';
-    import odooApi from '@/odooapi';
     
     const columns = [
         // {
@@ -156,7 +155,7 @@
 
             async get_company_model () {
 
-                const cid = odooApi.web.session.session_info.company_id;
+                const cid = odooRpc.web.session.session_info.company_id;
                 const domain = [['id', '=', cid]];
                 // const fields = [];
 

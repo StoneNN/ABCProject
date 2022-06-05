@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-04-13 11:50:28
- * @LastEditors: Nn
- * @LastEditTime: 2022-05-24 09:36:46
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-06-03 18:21:04
  * @Description: breadCrumb
 -->
 
@@ -74,6 +74,11 @@
           '/product/productList/productInfo':'产品详情',
           '/product/productList/productEdit':'产品编辑',
           '/product/productList/productCreate':'新建产品',
+
+          '/country':'国家信息',
+          '/country/countryList':'国家列表',
+          '/country/countryList/countryInfo':'国家详情',
+          '/country/countryList/countryEdit':'国家编辑'
         }
       }
     },

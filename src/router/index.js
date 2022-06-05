@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-04-25 17:05:44
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-25 00:17:35
+ * @LastEditTime: 2022-06-04 09:53:14
  * @Description: 
  */
 
@@ -44,11 +44,15 @@ import ProductInfo from '@/pages/product/productInfo'
 import ProductEdit from '@/pages/product/productEdit';
 import ProductCreate from '@/pages/product/productCreate';
 
+import CountryList from '@/pages/country/countryList';
+import CountryInfo from '@/pages/country/countryInfo';
+import CountryEdit from '@/pages/country/countryEdit';
+
 import Login from '@/pages/login.vue';
 import Register from '@/pages/register.vue';
 import TestView from '@/components/TestRpc';
 
-import odooApi from '@/odooapi';
+import odooRpc from '@/odoorpc';
 
 //  --2.--注入VueRouter插件
 Vue.use(VueRouter);
@@ -323,6 +327,36 @@ const invoiceRoutes = [
                 ]
             },
             {
+                path:'/country',
+                redirect:'country/countryList'
+            },
+            {
+                path:'country/countryList',
+                component:{render(c) { return c('router-view')  }},
+                meta:{title:'国家信息'},
+                redirect:'country/countryList',
+                children:[
+                    {
+                        path:'',
+                        name:'countryList',
+                        meta:{title:'国家列表'},
+                        component:CountryList
+                    },
+                    {
+                        path:'countryInfo',
+                        name:'countryInfo',
+                        meta:{title:'国家信息'},
+                        component:CountryInfo
+                    },
+                    {
+                        path:'countryEdit',
+                        name:'countryEdit',
+                        meta:{title:'国家编辑'},
+                        component:CountryEdit
+                    },
+                ]
+            },
+            {
                 path:'testPage',
                 name:'Test',
                 meta:{title:'测试页面'},
@@ -354,7 +388,7 @@ router.beforeEach( async (to,from,next)=>{
         next();
         return;
     }
-    const hasToken = await odooApi.web.session_check();
+    const hasToken = await odooRpc.web.session_check();
     console.log('======= hasToken =======',hasToken);
     if (hasToken) {
         next();

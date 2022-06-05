@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-22 02:54:00
+ * @LastEditTime: 2022-06-04 10:00:22
  * @Descripttion: Default Layout
 -->
 
@@ -29,8 +29,8 @@
             <a-icon :type="item.icon" />
             <span>{{ item.title }}</span>
           </a-menu-item>
-          <!-- 否则视为子菜单，传入菜单信息并且运用下面定义的函数式组件 -->
-          <sub-menu v-else :key="item.path" :menu-info="item" />
+          <!-- 否则视为子菜单，传入菜单信息并且运用下面定义的函数式组件 （ vue3 中 if 与 else 的 key 不能相同 ）-->
+          <sub-menu v-else :key="item.path + 1" :menu-info="item" />
         </template>
       </a-menu>
     </a-layout-sider>
@@ -87,7 +87,7 @@
   import { Layout, Table, Icon, Menu, Dropdown, Button, Modal } from "ant-design-vue";
   import BreadCrumbRouter from "../components/breads.vue";
   import 'ant-design-vue/dist/antd.css';
-  import odooApi from '@/odooapi';
+  import odooRpc from '@/odoorpc';
 
   Vue.use(Layout).use(Table).use(Icon).use(Menu).use(Dropdown).use(Button).use(Modal);
   Vue.use(BreadCrumbRouter);
@@ -205,6 +205,12 @@
           ],
         },
         {
+          key: '国家信息',
+          title: '国家信息',
+          icon: 'state',
+          path: '/country'
+        },
+        {
           key:'5',
           path: '/testPage',
           title:' 测试页面',
@@ -214,7 +220,7 @@
         //当前路由路径
         currentPath:'',
         //
-        sessionInfo: odooApi.web.session.session_info || {},
+        sessionInfo: odooRpc.web.session.session_info || {},
         //modal
         ModalText: '是否要退出？',
         visible: false,
@@ -276,7 +282,7 @@
         setTimeout(() => {
           this.visible = false;
           this.confirmLoading = false;
-          odooApi.web.logout();
+          odooRpc.web.logout();
           this.$router.replace({ path: '/userLogin' });
         }, 1000);
       },

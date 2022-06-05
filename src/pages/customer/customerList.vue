@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-05-10 10:12:23
  * @LastEditors: Nxf
- * @LastEditTime: 2022-05-24 22:51:49
+ * @LastEditTime: 2022-06-04 09:51:30
  * @Description: 客户列表
 -->
 
@@ -59,7 +59,6 @@
 
 <script>
     import odooRpc from '@/odoorpc';
-    import odooApi from '@/odooapi';
 
     const columns = [
         {
@@ -151,7 +150,7 @@
 
             async get_customer_model () {
 
-                const cid = odooApi.web.session.session_info.company_id;
+                const cid = odooRpc.web.session.session_info.company_id;
                 const domain = [['company_id', '=', cid]];
                 // const domain = [];
                 // const fields = [];

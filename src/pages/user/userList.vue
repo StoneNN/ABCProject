@@ -57,7 +57,6 @@
 <script>
 
     import odooRpc from '@/odoorpc';
-    import odooApi from '@/odooapi';
     
     const columns = [
         // {
@@ -208,7 +207,7 @@
             },
 
             async user_model_fields () {
-                const userModel = odooApi.env.model('res.users');
+                const userModel = odooRpc.env.model('res.users');
                 const allfields = [];
                 const attributes = [];
                 const res = await userModel.fields_get(allfields, attributes);
@@ -217,7 +216,7 @@
             },
             async get_user_model () {
 
-                const cid = odooApi.web.session.session_info.company_id;
+                const cid = odooRpc.web.session.session_info.company_id;
                 const userModel = odooRpc.env.model('res.users');
                 const domain = [['company_id', '=', cid]];
                 const fields = ['id','name','login','mobile','email','display_name','image_1920','function','company_id','category_id','comment','ref','user_id'];

@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-20 14:46:05
- * @LastEditors: Nn
- * @LastEditTime: 2022-06-02 16:26:28
+ * @LastEditors: Nxf
+ * @LastEditTime: 2022-06-04 09:59:17
  * @Description: 
 -->
 
@@ -29,7 +29,7 @@
         <!-- 返回 -->
         <router-link 
           :to="{
-              path:'/product/productList/productInfo',
+              path:'/product/productList',
               query:{
                   productId:productData.id
               }
@@ -42,7 +42,7 @@
       <h3 style="font-weight: bold; font-size: 16px;"> 新建产品</h3>
    
       <a-form-model-item label="产品名称">
-        <a-input v-model="productData.name" placeholder="产品名称" @blur="(e)=>handelChange('name',e.target.value)">
+        <a-input v-model="productData.name" placeholder="产品名称" @blur="(e)=>handleChange('name',e.target.value)">
           <a-icon slot="prefix" type="tag" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
@@ -60,12 +60,12 @@
         </a-select>
       </a-form-model-item>
       <a-form-model-item label="产品条码">
-        <a-input v-model="productData.barcode" placeholder="产品条码" @blur="(e)=>handelChange('barcode',e.target.value)">
+        <a-input v-model="productData.barcode" placeholder="产品条码" @blur="(e)=>handleChange('barcode',e.target.value)">
           <a-icon slot="prefix" type="barcode" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
       <!-- <a-form-model-item label="产品类别"> -->
-        <!-- <a-input v-model="productData.categ_id" placeholder="产品类别" @blur="(e)=>handelChange('categ_id',e.target.value)">
+        <!-- <a-input v-model="productData.categ_id" placeholder="产品类别" @blur="(e)=>handleChange('categ_id',e.target.value)">
           <a-icon slot="prefix" type="book" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item> -->
@@ -75,11 +75,11 @@
           :options="many2one_select_options.categ_id"
           width="100%"
           placeholder="产品类别"
-          @change="(e) => handelChange('categ_id', e)"
+          @change="(e) => handleChange('categ_id', e)"
         />
       </a-form-model-item>
       <a-form-model-item label="产品编码">
-        <a-input v-model="productData.default_code" placeholder="产品编码" @blur="(e)=>handelChange('default_code',e.target.value)">
+        <a-input v-model="productData.default_code" placeholder="产品编码" @blur="(e)=>handleChange('default_code',e.target.value)">
           <a-icon slot="prefix" type="profile" style="color:rgba(0,0,0,.25)" />
         </a-input>
       </a-form-model-item>
@@ -91,7 +91,7 @@
           style="width: 100%"
           v-model="productData.list_price" 
           placeholder="产品售价" 
-          @blur="(e)=>handelChange('list_price',e.target.value)"
+          @blur="(e)=>handleChange('list_price',e.target.value)"
         >
           <a-icon slot="prefix" type="red-envelope" style="color:rgba(0,0,0,.25)" />
         </a-input-number>
@@ -104,7 +104,7 @@
           style="width: 100%"
           v-model="productData.standard_price" 
           placeholder="产品成本价" 
-          @blur="(e)=>handelChange('standard_price',e.target.value)"
+          @blur="(e)=>handleChange('standard_price',e.target.value)"
         >
           <a-icon slot="prefix" type="money-collect" style="color:rgba(0,0,0,.25)" />
         </a-input-number>
@@ -117,7 +117,7 @@
           style="width: 100%"
           v-model="productData.volume" 
           placeholder="产品体积" 
-          @blur="(e)=>handelChange('volume',e.target.value)"
+          @blur="(e)=>handleChange('volume',e.target.value)"
         >
           <a-icon slot="prefix" type="fullscreen" style="color:rgba(0,0,0,.25)" />
         </a-input-number>
@@ -130,7 +130,7 @@
           style="width: 100%"
           v-model="productData.weight" 
           placeholder="产品重量" 
-          @blur="(e)=>handelChange('weight',e.target.value)"
+          @blur="(e)=>handleChange('weight',e.target.value)"
         >
           <a-icon slot="prefix" type="file-word" style="color:rgba(0,0,0,.25)" />
         </a-input-number>
@@ -145,7 +145,7 @@
 import Vue from "vue";
 import { Spin, Button, FormModel, Select, InputNumber } from "ant-design-vue";
 // import OInput from '@/components/OInput/OInput.vue';
-import OMany2one from '@/components/OInput/OMany2one.vue';
+import OMany2one from '@/components/OMany2one.vue';
 Vue.use(FormModel).use(Spin).use(Button).use(Select).use(InputNumber);
 
 import "ant-design-vue/dist/antd.css";
@@ -227,9 +227,9 @@ export default {
 
       return res
     },
-    async handelChange(fname, value) {
-      console.log('=== handelChange ===',fname, value)
-      // 这里 是父组件的  handelChange
+    async handleChange(fname, value) {
+      console.log('=== handleChange ===',fname, value)
+      // 这里 是父组件的  handleChange
 
       if (this.edit_model) {
         this.edit_model.onchange({
@@ -265,7 +265,7 @@ export default {
             this.btnLoading = false;
             this.$router.push(
               {
-                path: '/product/productList/productInfo', 
+                path: '/product/productList', 
                 query: {
                   productId: this.productData.id
                 }
