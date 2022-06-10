@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-04-13 11:50:28
- * @LastEditors: Nxf
- * @LastEditTime: 2022-06-03 18:21:04
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-10 17:49:35
  * @Description: breadCrumb
 -->
 
@@ -148,6 +148,7 @@
 <style scoped>
   .mianBaoXie {
     background-color: white;
+    width: 100%;
     padding: 5px 0px;
     margin-bottom: 10px;
     margin-top: 5px;
@@ -155,5 +156,11 @@
     padding-left: 10px;
     border-radius: 10px;
     text-align: left;
+    height: 33px;
+    /* position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; */
   }
 </style>

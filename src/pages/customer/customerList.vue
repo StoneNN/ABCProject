@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-10 10:12:23
- * @LastEditors: Nxf
- * @LastEditTime: 2022-06-04 09:51:30
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-10 17:04:25
  * @Description: 客户列表
 -->
 
@@ -25,7 +25,7 @@
             placeholder="请输入客户名称"
             enter-button="搜索"
             size="default"
-            style="width:40%;"
+            style="width:300px;"
             @search="onSearch"
             />
         </div>
@@ -177,7 +177,16 @@
 </script>
 
 <style lang='less' scoped>
-
+    #root {
+        // background-color: red;
+        padding-right: 10px;
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        min-width: 1000px;
+    }
     #root1 {
         background-color: white;
         width: 100%;

@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-06-03 18:09:04
- * @LastEditors: Nxf
- * @LastEditTime: 2022-06-05 18:09:04
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-06 11:25:01
  * @Descripttion: 
 -->
 
@@ -40,14 +40,12 @@
           {{ countryData.name }}
         </a-descriptions-item>
         <a-descriptions-item label="省、州信息" :span="4">
-           
-            <a-table
-                :columns="columns" 
-                :data-source="stateData"
-                :row-key="record => record.id" 
-            >
-            </a-table>
-
+          <a-table
+              :columns="columns" 
+              :data-source="stateData"
+              :row-key="record => record.id" 
+          >
+          </a-table>
         </a-descriptions-item>
       </a-descriptions>
     </a-spin>
@@ -154,9 +152,9 @@ export default {
 
 <style  lang='less' scoped>
     /deep/.ant-descriptions {
-    margin: 0px 10px 0px 10px;
-    padding-top: 0px;
-
+      margin: 0px 10px 0px 10px;
+      padding-top: 0px;
+      padding-bottom: 8px;
     }
     /deep/.ant-descriptions-item-content {
       padding: 5px 10px 2px 10px;

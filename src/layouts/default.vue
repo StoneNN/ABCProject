@@ -1,11 +1,10 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
- * @LastEditors: Nxf
- * @LastEditTime: 2022-06-04 10:00:22
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-10 17:58:39
  * @Descripttion: Default Layout
 -->
-
 
 <template>
   <a-layout id="components-layout-demo-side" style="height: 100vh; min-height: 100%; width:100%">
@@ -58,8 +57,21 @@
       </a-layout-header>  
       <a-layout-content style="padding: 0 10px; height: 85vh; overflow:auto; ">
         <BreadCrumbRouter/>
+        <!-- position:'relative',
+            top:'0px',
+            left:'10px',
+            right:'10px',
+            bottom:'10px', -->
         <div
-          :style="{ padding: '0px', background: '#fff', minHeight: '360px' }"
+          :style="{ 
+            margin:'0',
+            background:'#fff',
+            marginBottom:'10px',
+            minHeight:'92%',
+            width:'100%',
+            background:'gray',
+            overflow:'auto'
+          }"
         >
           <router-view></router-view>
         </div>

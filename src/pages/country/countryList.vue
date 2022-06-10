@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-06-03 18:08:34
- * @LastEditors: Nxf
- * @LastEditTime: 2022-06-03 19:25:41
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-10 17:04:37
  * @Descripttion: 
 -->
 <template>
@@ -20,7 +20,7 @@
                 placeholder="请输入国家名称"
                 enter-button="搜索"
                 size="default"
-                style="width:40%;"
+                style="width:300px;"
                 @search="onSearch"
                 v-model="serchValue"
             />
@@ -182,7 +182,7 @@
                 const countryModel = await odooRpc.env.model('res.country',{fields});
                 this.fields_info = countryModel._fields;
 
-                const limit = 800;
+                const limit = 5;
                 const offset = 0;
                 const order = 'display_name';
                 const result = await countryModel.search_read({
@@ -202,6 +202,15 @@
     }
 </script>
 <style lang='less' scoped>
+#root {
+    background-color: white;
+    padding-right: 10px;
+    // position: relative;
+    // left: 0;
+    // right: 0;
+    // top: 0;
+    // bottom: 0;
+    // min-width: 1000px;
 
     #root1 {
         background-color: white;
@@ -226,4 +235,5 @@
         background-color: white;
         margin: 10px 20px;
     }
+}
 </style>

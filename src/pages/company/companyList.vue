@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
- * @LastEditors: Nxf
- * @LastEditTime: 2022-06-04 09:50:43
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-10 18:02:32
  * @Descripttion: 公司列表
 -->
 
@@ -26,7 +26,7 @@
             placeholder="请输入公司名称"
             enter-button="搜索"
             size="default"
-            style="width:40%;"
+            style="width:300px;"
             @search="onSearch"
             />
         </div>
@@ -181,6 +181,16 @@
     }
 </script>
 <style lang='less' scoped>
+#root {
+        // background-color: red;
+        padding-right: 10px;
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        min-width: 1000px;
+    }
    #root1 {
         background-color: white;
         width: 100%;
@@ -203,5 +213,6 @@
     /deep/.ant-table {
         background-color: white;
         margin: 10px 20px;
+        width: 100%;
     }
 </style>

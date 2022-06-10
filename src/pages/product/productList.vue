@@ -1,8 +1,8 @@
 <!--
  * @Author: Nn
  * @Date: 2022-05-10 10:11:43
- * @LastEditors: Nxf
- * @LastEditTime: 2022-06-03 18:21:57
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-10 17:33:41
  * @Description: 产品列表
 -->
 
@@ -25,7 +25,7 @@
                 placeholder="请输入产品名称"
                 enter-button="搜索"
                 size="default"
-                style="width:40%;"
+                style="width:300px;"
                 @search="onSearch"
                 v-model="serchValue"
             />
@@ -259,7 +259,16 @@
     }
 </script>
 <style lang='less' scoped>
-
+    #root {
+        background-color: white;
+        padding-right: 10px;
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        min-width: 1000px;
+    }
     #root1 {
         background-color: white;
         width: 100%;

@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
  * @LastEditors: Nn
- * @LastEditTime: 2022-05-23 15:53:45
+ * @LastEditTime: 2022-06-10 17:04:12
  * @Descripttion: userList页面
 -->
 
@@ -23,7 +23,7 @@
             placeholder="请输入订单号码"
             enter-button="搜索"
             size="default"
-            style="width:40%;"
+            style="width:300px;"
             @search="onSearch"
             />
         </div>
@@ -241,7 +241,17 @@
     }
 </script>
 <style lang='less' scoped>
-     #root1 {
+    #root {
+        background-color: white;
+        padding-right: 10px;
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        min-width: 1000px;
+    }
+    #root1 {
         background-color: white;
         width: 100%;
         height: 50px;

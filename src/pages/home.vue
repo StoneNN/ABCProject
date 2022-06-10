@@ -1,23 +1,9 @@
 <!--
  * @Author: Nn
  * @Date: 2022-04-06 17:34:31
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-08 10:35:53
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-10 16:54:15
  * @Description: 
--->
-
-<!--
-<template>
-        <h1>home页面</h1>
-</template>
-<script>
-    export default {
-        name:"HomeCpnt",
-    }
-</script>
-<style scoped>
-    
-</style>
 -->
 
 

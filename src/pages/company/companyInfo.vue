@@ -1,8 +1,8 @@
 <!--
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:33
- * @LastEditors: Nxf
- * @LastEditTime: 2022-05-25 00:32:12
+ * @LastEditors: Nn
+ * @LastEditTime: 2022-06-06 11:27:21
  * @Descripttion: 
 -->
 
@@ -72,7 +72,6 @@
         <br />
       </a-descriptions-item> -->
     </a-descriptions>
-
   </div>
 </template>
 <script>
