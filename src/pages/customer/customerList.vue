@@ -2,7 +2,7 @@
  * @Author: Nn
  * @Date: 2022-05-10 10:12:23
  * @LastEditors: Nn
- * @LastEditTime: 2022-06-10 17:04:25
+ * @LastEditTime: 2022-06-11 11:06:45
  * @Description: 客户列表
 -->
 
@@ -36,7 +36,6 @@
             :row-key="record => record.id" 
             :loading="loading"
         >
-
             <a slot="orderCode" slot-scope="text">{{text}}</a>
             <span slot="total" slot-scope="text">￥{{text}}</span>
             <template slot="action" slot-scope="text,record">
@@ -178,7 +177,7 @@
 
 <style lang='less' scoped>
     #root {
-        // background-color: red;
+        background-color: white;
         padding-right: 10px;
         position: relative;
         left: 0;

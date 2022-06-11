@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-04-05 18:42:09
  * @LastEditors: Nn
- * @LastEditTime: 2022-06-10 17:58:39
+ * @LastEditTime: 2022-06-11 11:04:57
  * @Descripttion: Default Layout
 -->
 
@@ -69,7 +69,7 @@
             marginBottom:'10px',
             minHeight:'92%',
             width:'100%',
-            background:'gray',
+            background:'white',
             overflow:'auto'
           }"
         >

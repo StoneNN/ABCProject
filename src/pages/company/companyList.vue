@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
  * @LastEditors: Nn
- * @LastEditTime: 2022-06-10 18:02:32
+ * @LastEditTime: 2022-06-11 11:03:06
  * @Descripttion: 公司列表
 -->
 
@@ -37,7 +37,6 @@
             :row-key="record => record.id" 
             :loading="loading"
         >
-        
             <a slot="orderCode" slot-scope="text">{{text}}</a>
             <span slot="total" slot-scope="text">￥{{text}}</span>
             <template slot="action" slot-scope="text,record">
@@ -182,7 +181,7 @@
 </script>
 <style lang='less' scoped>
 #root {
-        // background-color: red;
+        background-color: white;
         padding-right: 10px;
         position: relative;
         left: 0;
@@ -213,6 +212,5 @@
     /deep/.ant-table {
         background-color: white;
         margin: 10px 20px;
-        width: 100%;
     }
 </style>

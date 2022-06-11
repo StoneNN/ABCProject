@@ -2,7 +2,7 @@
  * @Author: Nxf
  * @Date: 2022-05-04 13:21:14
  * @LastEditors: Nn
- * @LastEditTime: 2022-06-10 17:04:12
+ * @LastEditTime: 2022-06-11 11:07:57
  * @Descripttion: userList页面
 -->
 
@@ -273,6 +273,5 @@
     /deep/.ant-table {
         background-color: white;
         margin: 10px 20px;
-        width: 100%;
     }
 </style>
